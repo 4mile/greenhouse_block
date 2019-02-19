@@ -1,5 +1,6 @@
 view: in_cgatherapi_applications_jobs {
-  sql_table_name: WORKSPACE_1155666.in.c-gather-API.applications_jobs ;;
+  view_label: "Application Jobs"
+  sql_table_name: WORKSPACE_1155666."in.c-gather-API.applications_jobs";;
 
   dimension_group: _timestamp {
     type: time
@@ -16,6 +17,7 @@ view: in_cgatherapi_applications_jobs {
   }
 
   dimension: applications_pkey {
+    primary_key: yes
     type: string
     sql: ${TABLE}."applications_pkey" ;;
   }

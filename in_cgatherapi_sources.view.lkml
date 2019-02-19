@@ -1,5 +1,6 @@
 view: in_cgatherapi_sources {
-  sql_table_name: WORKSPACE_1155666.in.c-gather-API.sources ;;
+  view_label: "Sources"
+  sql_table_name: WORKSPACE_1155666."in.c-gather-API.sources" ;;
 
   dimension: id {
     primary_key: yes

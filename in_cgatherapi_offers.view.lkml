@@ -1,5 +1,6 @@
 view: in_cgatherapi_offers {
-  sql_table_name: WORKSPACE_1155666.in.c-gather-API.offers ;;
+  view_label: "Offers"
+  sql_table_name: WORKSPACE_1155666."in.c-gather-API.offers" ;;
 
   dimension: id {
     primary_key: yes

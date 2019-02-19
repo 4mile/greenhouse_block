@@ -1,5 +1,6 @@
 view: in_cgatherapi_applications {
-  sql_table_name: WORKSPACE_1155666.in.c-gather-API.applications ;;
+  view_label: "Applications"
+  sql_table_name: WORKSPACE_1155666."in.c-gather-API.applications" ;;
 
   dimension: id {
     primary_key: yes
@@ -57,26 +58,31 @@ view: in_cgatherapi_applications {
   }
 
   dimension: rejected_at {
+    group_label: "Rejected Info"
     type: string
     sql: ${TABLE}."rejected_at" ;;
   }
 
   dimension: rejection_reason_id {
+    group_label: "Rejected Info"
     type: string
     sql: ${TABLE}."rejection_reason_id" ;;
   }
 
   dimension: rejection_reason_name {
+    group_label: "Rejected Info"
     type: string
     sql: ${TABLE}."rejection_reason_name" ;;
   }
 
   dimension: rejection_reason_type_id {
+    group_label: "Rejected Info"
     type: string
     sql: ${TABLE}."rejection_reason_type_id" ;;
   }
 
   dimension: rejection_reason_type_name {
+    group_label: "Rejected Info"
     type: string
     sql: ${TABLE}."rejection_reason_type_name" ;;
   }

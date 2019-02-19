@@ -1,8 +1,8 @@
 view: in_cgatherapi_jobs_offices {
-  sql_table_name: WORKSPACE_1155666.in.c-gather-API.jobs_offices ;;
+  view_label: "Job Offices"
+  sql_table_name: WORKSPACE_1155666."in.c-gather-API.jobs_offices";;
 
   dimension: id {
-    primary_key: yes
     type: string
     sql: ${TABLE}."id" ;;
   }
@@ -22,6 +22,7 @@ view: in_cgatherapi_jobs_offices {
   }
 
   dimension: jobs_pkey {
+    primary_key: yes
     type: string
     sql: ${TABLE}."jobs_pkey" ;;
   }
