@@ -1,4 +1,4 @@
-view: in_cgatherapi_candidates_email_addresses {
+view: candidates_email_addresses {
   view_label: "Candidates Email Addresses"
   sql_table_name: WORKSPACE_1155666."in.c-gather-API.candidates_email_addresses";;
 

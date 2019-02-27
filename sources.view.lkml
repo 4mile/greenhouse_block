@@ -1,4 +1,4 @@
-view: in_cgatherapi_sources {
+view: sources {
   view_label: "Sources"
   sql_table_name: WORKSPACE_1155666."in.c-gather-API.sources" ;;
 

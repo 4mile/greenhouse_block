@@ -1,6 +1,6 @@
-view: in_cgatherapi_jobs_departments {
-  view_label: "Job Departments"
-  sql_table_name: WORKSPACE_1155666."in.c-gather-API.jobs_departments" ;;
+view: jobs_offices {
+  view_label: "Job Offices"
+  sql_table_name: WORKSPACE_1155666."in.c-gather-API.jobs_offices";;
 
   dimension: id {
     type: string
