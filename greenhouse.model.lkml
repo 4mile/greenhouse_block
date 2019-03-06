@@ -70,6 +70,8 @@ explore: in_cgatherapi_applications {
   }
 }
 
+explore: candidate_detail {}
+
 # explore: in_cgatherapi_applications {}
 
 # explore: in_cgatherapi_applications_jobs {}
