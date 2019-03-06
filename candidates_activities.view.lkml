@@ -1,4 +1,4 @@
-view: in_cgatherapi_candidates_activities {
+view: candidates_activities {
   view_label: "Candidate Activites"
   sql_table_name: WORKSPACE_1155666."in.c-gather-API.candidates_activities" ;;
 

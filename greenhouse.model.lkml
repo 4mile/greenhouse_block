@@ -10,84 +10,84 @@ datagroup: greenhouse_default_datagroup {
 
 persist_with: greenhouse_default_datagroup
 
-explore: in_cgatherapi_applications {
+explore: applications {
   label: "Applications"
 
-  join:  in_cgatherapi_candidates {
+  join:  candidates {
     type:left_outer
-    sql_on: ${in_cgatherapi_applications.candidate_id} = ${in_cgatherapi_candidates.id};;
+    sql_on: ${applications.candidate_id} = ${candidates.id};;
     relationship: many_to_one
   }
 
-  join:  in_cgatherapi_candidates_email_addresses {
+  join:  candidates_email_addresses {
     type:left_outer
-    sql_on: ${in_cgatherapi_candidates.id} = ${in_cgatherapi_candidates_email_addresses.candidates_pkey};;
+    sql_on: ${candidates.id} = ${candidates_email_addresses.candidates_pkey};;
     relationship: one_to_one
   }
 
-  join:  in_cgatherapi_candidates_activities {
+  join:  candidates_activities {
     type:left_outer
-    sql_on: ${in_cgatherapi_applications.candidate_id} = ${in_cgatherapi_candidates_activities.candidate_id};;
+    sql_on: ${applications.candidate_id} = ${candidates_activities.candidate_id};;
     relationship: many_to_many
   }
 
 # is this data useful or just used to join jobs...
-  join:  in_cgatherapi_applications_jobs {
+  join:  applications_jobs {
     type:left_outer
-    sql_on: ${in_cgatherapi_applications.id} = ${in_cgatherapi_applications_jobs.applications_pkey};;
+    sql_on: ${applications.id} = ${applications_jobs.applications_pkey};;
     relationship: one_to_one
   }
 
-  join:  in_cgatherapi_jobs {
+  join:  jobs {
     type:left_outer
-    sql_on: ${in_cgatherapi_applications_jobs.job_id} = ${in_cgatherapi_jobs.id};;
+    sql_on: ${applications_jobs.job_id} = ${jobs.id};;
     relationship: many_to_one
   }
 
-  join:  in_cgatherapi_jobs_offices {
+  join:  jobs_offices {
     type:left_outer
-    sql_on: ${in_cgatherapi_jobs.id} = ${in_cgatherapi_jobs_offices.jobs_pkey};;
+    sql_on: ${jobs.id} = ${jobs_offices.jobs_pkey};;
     relationship: one_to_one
   }
 
-  join:  in_cgatherapi_jobs_departments {
+  join:  jobs_departments {
     type:left_outer
-    sql_on: ${in_cgatherapi_jobs.id} = ${in_cgatherapi_jobs_departments.jobs_pkey};;
+    sql_on: ${jobs.id} = ${jobs_departments.jobs_pkey};;
     relationship: one_to_one
   }
 
-  join:  in_cgatherapi_offers {
+  join:  offers {
     type:left_outer
-    sql_on: ${in_cgatherapi_applications.id} = ${in_cgatherapi_offers.application_id};;
+    sql_on: ${applications.id} = ${offers.application_id};;
     relationship: one_to_many
   }
 
 #   applications."source_id" = sources."id"
-  join:  in_cgatherapi_sources {
+  join:  sources {
     type:left_outer
-    sql_on: ${in_cgatherapi_applications.source_id} = ${in_cgatherapi_sources.id};;
+    sql_on: ${applications.source_id} = ${sources.id};;
     relationship: many_to_one
   }
 }
 
 explore: candidate_detail {}
 
-# explore: in_cgatherapi_applications {}
+# explore: applications {}
 
-# explore: in_cgatherapi_applications_jobs {}
+# explore: applications_jobs {}
 
-# explore: in_cgatherapi_candidates {}
+# explore: candidates {}
 
-# explore: in_cgatherapi_candidates_activities {}
+# explore: candidates_activities {}
 
-# explore: in_cgatherapi_candidates_email_addresses {}
+# explore: candidates_email_addresses {}
 #
-# explore: in_cgatherapi_jobs {}
+# explore: jobs {}
 #
-# explore: in_cgatherapi_jobs_departments {}
+# explore: jobs_departments {}
 #
-# explore: in_cgatherapi_jobs_offices {}
+# explore: jobs_offices {}
 #
-# explore: in_cgatherapi_offers {}
+# explore: offers {}
 #
-# explore: in_cgatherapi_sources {}
+# explore: sources {}

@@ -1,4 +1,4 @@
-view: in_cgatherapi_applications_jobs {
+view: applications_jobs {
   view_label: "Application Jobs"
   sql_table_name: WORKSPACE_1155666."in.c-gather-API.applications_jobs";;
 
