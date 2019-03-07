@@ -33,7 +33,8 @@ view: candidates_email_addresses {
   }
 
   measure: count {
-    type: count
-    drill_fields: []
+    label: "Count Candidates by Email"
+    type: count_distinct
+    sql: ${TABLE}."email_address" ;;
   }
 }

@@ -4,26 +4,29 @@ view: applications {
 
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: string
     sql: ${TABLE}."id" ;;
   }
 
-  dimension_group: _timestamp {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}."_timestamp" ;;
-  }
+#   dimension_group: _timestamp {
+#     label: "Application Date"
+#     type: time
+#     timeframes: [
+#       raw,
+#       date,
+#       week,
+#       month,
+#       quarter,
+#       year
+#     ]
+#     sql: ${TABLE}."_timestamp" ;;
+#   }
 
-  dimension: applied_at {
-    type: string
+  dimension_group: applied_at {
+    label: "Applied At"
+    type: time
+    timeframes: [raw,date,week,month,quarter,year]
     sql: ${TABLE}."applied_at" ;;
   }
 
@@ -42,13 +45,15 @@ view: applications {
     sql: ${TABLE}."current_stage_name" ;;
   }
 
+# no values
   dimension: custom_fields {
     type: string
     sql: ${TABLE}."custom_fields" ;;
   }
 
-  dimension: last_activity_at {
-    type: string
+  dimension_group: last_activity_at {
+    type: time
+    timeframes: [raw,date,week,month,quarter,year]
     sql: ${TABLE}."last_activity_at" ;;
   }
 
@@ -57,9 +62,10 @@ view: applications {
     sql: ${TABLE}."prospect" ;;
   }
 
-  dimension: rejected_at {
-    group_label: "Rejected Info"
-    type: string
+  dimension_group: rejected_at {
+#     group_label: "Rejected Info"
+    type: time
+    timeframes: [raw,date,week,month,quarter,year]
     sql: ${TABLE}."rejected_at" ;;
   }
 
@@ -89,6 +95,7 @@ view: applications {
 
   dimension: source_id {
     type: string
+    hidden: yes
     sql: ${TABLE}."source_id" ;;
   }
 
@@ -97,8 +104,15 @@ view: applications {
     sql: ${TABLE}."status" ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [id, rejection_reason_name, rejection_reason_type_name, current_stage_name]
+  measure: application_count {
+    label: "Count of Applications"
+    type: count_distinct
+    sql: ${TABLE}."id" ;;
+  }
+
+  measure: candidate_count {
+    label: "Count of Applicants"
+    type: count_distinct
+    sql: ${TABLE}."candidate_id" ;;
   }
 }

@@ -8,29 +8,31 @@ view: jobs {
     sql: ${TABLE}."id" ;;
   }
 
-  dimension_group: _timestamp {
+#   dimension_group: _timestamp {
+#     type: time
+#     timeframes: [
+#       raw,
+#       time,
+#       date,
+#       week,
+#       month,
+#       quarter,
+#       year
+#     ]
+#     sql: ${TABLE}."_timestamp" ;;
+#   }
+
+  dimension_group: closed_at {
     type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}."_timestamp" ;;
-  }
-
-  dimension: closed_at {
-    type: string
     sql: ${TABLE}."closed_at" ;;
+    timeframes: [raw,date,week,month,quarter,year]
   }
 
-  dimension: created_at {
-    label: "Job Created At"
-    type: string
+  dimension_group: created_at {
+#     label: "Created At"
+    type: time
     sql: ${TABLE}."created_at" ;;
+    timeframes: [raw,date,week,month,quarter,year]
   }
 
   dimension: custom_fields_budgeted {
@@ -132,9 +134,10 @@ view: jobs {
     sql: ${TABLE}."name" ;;
   }
 
-  dimension: opened_at {
-    type: string
+  dimension_group: opened_at {
+    type: time
     sql: ${TABLE}."opened_at" ;;
+    timeframes: [raw,date,week,month,quarter,year]
   }
 
   dimension: status {
@@ -142,20 +145,22 @@ view: jobs {
     sql: ${TABLE}."status" ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
+  measure: count_jobs {
+    label: "Count of Jobs"
+    type: count_distinct
+    sql: ${TABLE}."id" ;;
+#     drill_fields: [detail*]
   }
 
   # ----- Sets of fields for drilling ------
-  set: detail {
-    fields: [
-      id,
-      name,
-      custom_fields_recruiter_last_name,
-      custom_fields_recruiter_first_name,
-      custom_fields_hiring_manager_first_name,
-      custom_fields_hiring_manager_last_name
-    ]
-  }
+#   set: detail {
+#     fields: [
+#       id,
+#       name,
+#       custom_fields_recruiter_last_name,
+#       custom_fields_recruiter_first_name,
+#       custom_fields_hiring_manager_first_name,
+#       custom_fields_hiring_manager_last_name
+#     ]
+#   }
 }

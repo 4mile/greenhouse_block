@@ -33,9 +33,20 @@ view: candidates_activities {
 #     sql: ${TABLE}."_timestamp" ;;
 #   }
 
+  dimension: body_category {
+    type: string
+    sql: CASE
+            WHEN ${TABLE}."body" ilike '%submitted a take home test%' THEN 'Submitted Assessment'
+            WHEN ${TABLE}."body" ilike '%Offer document % was signed by%' THEN 'Offer Signed'
+            WHEN ${TABLE}."body" ilike '%marked an offer to % as accepted%' THEN 'Offer Accepted'
+            WHEN ${TABLE}."body" ilike '%was moved into Assessment%' THEN 'Moved to Assessment'
+            WHEN ${TABLE}."body" ilike '%was moved into Onsite Interview%' THEN 'Moved to Onsite Interview'
+        ELSE NULL END ;;
+  }
+
   dimension: body {
     type: string
-    sql: ${TABLE}."body" ;;
+    sql: ${TABLE}."body";;
   }
 
   dimension: subject {
@@ -43,8 +54,17 @@ view: candidates_activities {
     sql: ${TABLE}."subject" ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [id]
+  measure: count_candidate {
+    label: "Count of Candidates"
+    type: count_distinct
+    sql: ${TABLE}."candidate_id" ;;
+#     drill_fields: [id]
+  }
+
+  measure: count_candidate_activities {
+    label: "Count of Candidate Activites"
+    type: count_distinct
+    sql: ${TABLE}."id" ;;
+#     drill_fields: [id]
   }
 }

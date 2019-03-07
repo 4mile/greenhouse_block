@@ -451,11 +451,12 @@ view: candidate_detail {
     sql: ${TABLE}."candidaterejectreason" ;;
   }
 
-  dimension: candidateassessmentresults2 {
+  dimension_group: candidateassessmentresults2 {
     view_label: "Candidate"
 #     group_label: "Candidate Info"
-    label: "Assessment Results 2"
-    type: string
+    label: "Assessment Date"
+    type: time
+    timeframes: [raw,date,week,month,quarter,year]
     sql: ${TABLE}."candidateassessmentresults2" ;;
   }
 
@@ -553,7 +554,7 @@ view: candidate_detail {
 
   measure: count_candidate_distinct {
     view_label: "Candidate"
-    label: "Number of Candidates"
+    label: "Count of Candidates"
     type: count_distinct
     sql:  ${TABLE}."candidateemail";;
   }
@@ -656,7 +657,7 @@ view: candidate_detail {
     group_label: "CCAT Score"
     label: "Average Combined CCAT Raw Score"
     type: average
-    sql: (NULLIF(${TABLE}."ccat1rawscore",'')+NULLIF(${TABLE}."ccat1rawscore",''));;
+    sql: (NULLIF(${TABLE}."ccat1rawscore",'')+NULLIF(${TABLE}."ccat2rawscore",''));;
     value_format_name: decimal_1
   }
 
@@ -824,6 +825,13 @@ view: candidate_detail {
     label: "Req Type"
     type: string
     sql: ${TABLE}."reqtype" ;;
+  }
+
+  measure: count_jobs {
+    view_label: "Job"
+    label: "Count of Jobs"
+    type: count_distinct
+    sql: ${TABLE}."jobid" ;;
   }
 
 ################################### OFFER  ###################################
