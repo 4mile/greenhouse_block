@@ -1,10 +1,11 @@
 view: applications {
   view_label: "Applications"
-  sql_table_name: WORKSPACE_1155666."in.c-gather-API.applications" ;;
+  sql_table_name: WORKSPACE_1155666."in.c-wrike-API.applications" ;;
 
   dimension: id {
+    label: "Application Id"
     primary_key: yes
-    hidden: yes
+#     hidden: yes
     type: string
     sql: ${TABLE}."id" ;;
   }
@@ -27,15 +28,17 @@ view: applications {
     label: "Applied At"
     type: time
     timeframes: [raw,date,week,month,quarter,year]
-    sql: ${TABLE}."applied_at" ;;
+    sql: NULLIF(${TABLE}."applied_at",'');;
   }
 
   dimension: candidate_id {
     type: string
+    hidden: yes
     sql: ${TABLE}."candidate_id" ;;
   }
 
   dimension: current_stage_id {
+    hidden: yes
     type: string
     sql: ${TABLE}."current_stage_id" ;;
   }
@@ -54,7 +57,7 @@ view: applications {
   dimension_group: last_activity_at {
     type: time
     timeframes: [raw,date,week,month,quarter,year]
-    sql: ${TABLE}."last_activity_at" ;;
+    sql: NULLIF(${TABLE}."last_activity_at",'') ;;
   }
 
   dimension: prospect {
@@ -66,11 +69,12 @@ view: applications {
 #     group_label: "Rejected Info"
     type: time
     timeframes: [raw,date,week,month,quarter,year]
-    sql: ${TABLE}."rejected_at" ;;
+    sql: NULLIF(${TABLE}."rejected_at",'') ;;
   }
 
   dimension: rejection_reason_id {
     group_label: "Rejected Info"
+    hidden: yes
     type: string
     sql: ${TABLE}."rejection_reason_id" ;;
   }
@@ -83,6 +87,7 @@ view: applications {
 
   dimension: rejection_reason_type_id {
     group_label: "Rejected Info"
+    hidden: yes
     type: string
     sql: ${TABLE}."rejection_reason_type_id" ;;
   }
@@ -109,10 +114,14 @@ view: applications {
     type: count_distinct
     sql: ${TABLE}."id" ;;
   }
-
-  measure: candidate_count {
-    label: "Count of Applicants"
-    type: count_distinct
-    sql: ${TABLE}."candidate_id" ;;
-  }
+#
+#   measure: rejection_count {
+#     label: "Count of Rejections"
+#     type: count_distinct
+#     sql: ${TABLE}."id" ;;
+#     filters: {
+#       field: status
+#       value: "rejected"
+#     }
+#   }
 }

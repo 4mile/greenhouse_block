@@ -20,6 +20,7 @@ explore: applications {
   }
 
   join:  candidates_email_addresses {
+    view_label: "Candidates"
     type:left_outer
     sql_on: ${candidates.id} = ${candidates_email_addresses.candidates_pkey};;
     relationship: one_to_one
@@ -33,6 +34,7 @@ explore: applications {
 
 # is this data useful or just used to join jobs...
   join:  applications_jobs {
+    view_label: "Applications"
     type:left_outer
     sql_on: ${applications.id} = ${applications_jobs.applications_pkey};;
     relationship: one_to_one
@@ -42,6 +44,12 @@ explore: applications {
     type:left_outer
     sql_on: ${applications_jobs.job_id} = ${jobs.id};;
     relationship: many_to_one
+  }
+
+  join:  jobs_openings {
+    type:left_outer
+    sql_on: ${jobs.id} = ${jobs_openings.job_id} ;;
+    relationship: one_to_many
   }
 
   join:  jobs_offices {
@@ -71,23 +79,4 @@ explore: applications {
 }
 
 explore: candidate_detail {}
-
-# explore: applications {}
-
-# explore: applications_jobs {}
-
-# explore: candidates {}
-
-# explore: candidates_activities {}
-
-# explore: candidates_email_addresses {}
-#
-# explore: jobs {}
-#
-# explore: jobs_departments {}
-#
-# explore: jobs_offices {}
-#
-# explore: offers {}
-#
-# explore: sources {}
+explore: incremental {}

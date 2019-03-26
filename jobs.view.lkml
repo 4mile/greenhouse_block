@@ -1,38 +1,32 @@
 view: jobs {
   view_label: "Jobs"
-  sql_table_name: WORKSPACE_1155666."in.c-gather-API.jobs" ;;
+  sql_table_name: WORKSPACE_1155666."in.c-wrike-API.jobs" ;;
 
   dimension: id {
+    label: "Job Id"
     primary_key: yes
     type: string
     sql: ${TABLE}."id" ;;
   }
 
-#   dimension_group: _timestamp {
-#     type: time
-#     timeframes: [
-#       raw,
-#       time,
-#       date,
-#       week,
-#       month,
-#       quarter,
-#       year
-#     ]
-#     sql: ${TABLE}."_timestamp" ;;
-#   }
+  dimension_group: _timestamp {
+    type: time
+    timeframes: [raw, date, week, month, quarter, year]
+    hidden: yes
+    sql: ${TABLE}."_timestamp" ;;
+  }
 
   dimension_group: closed_at {
     type: time
-    sql: ${TABLE}."closed_at" ;;
     timeframes: [raw,date,week,month,quarter,year]
+    sql: NULLIF(${TABLE}."closed_at",'') ;;
   }
 
   dimension_group: created_at {
 #     label: "Created At"
     type: time
-    sql: ${TABLE}."created_at" ;;
     timeframes: [raw,date,week,month,quarter,year]
+    sql: NULLIF(${TABLE}."created_at",'') ;;
   }
 
   dimension: custom_fields_budgeted {
@@ -136,8 +130,8 @@ view: jobs {
 
   dimension_group: opened_at {
     type: time
-    sql: ${TABLE}."opened_at" ;;
     timeframes: [raw,date,week,month,quarter,year]
+    sql: NULLIF(${TABLE}."opened_at",'') ;;
   }
 
   dimension: status {

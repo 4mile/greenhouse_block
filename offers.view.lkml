@@ -1,36 +1,31 @@
 view: offers {
   view_label: "Offers"
-  sql_table_name: WORKSPACE_1155666."in.c-gather-API.offers" ;;
+  sql_table_name: WORKSPACE_1155666."in.c-wrike-API.offers" ;;
 
   dimension: id {
+    label: "Offer Id"
     primary_key: yes
     type: string
     sql: ${TABLE}."id" ;;
   }
 
-#   dimension_group: _timestamp {
-#     type: time
-#     timeframes: [
-#       raw,
-#       time,
-#       date,
-#       week,
-#       month,
-#       quarter,
-#       year
-#     ]
-#     sql: ${TABLE}."_timestamp" ;;
-#   }
+  dimension_group: _timestamp {
+    type: time
+    hidden: yes
+    timeframes: [raw, date, week, month, quarter, year]
+    sql: ${TABLE}."_timestamp" ;;
+  }
 
   dimension: application_id {
+    hidden: yes
     type: string
     sql: ${TABLE}."application_id" ;;
   }
 
   dimension_group: created_at {
     type: time
-    sql: ${TABLE}."created_at" ;;
     timeframes: [raw,date,week,month,quarter,year]
+    sql: NULLIF(${TABLE}."created_at",'') ;;
   }
 
   dimension: custom_fields_hire_base {
@@ -89,14 +84,14 @@ view: offers {
 
   dimension_group: sent_at {
     type: time
-    sql: ${TABLE}."sent_at" ;;
     timeframes: [raw,date,week,month,quarter,year]
+    sql: NULLIF(${TABLE}."sent_at",'') ;;
   }
 
   dimension_group: starts_at {
     type: time
-    sql: ${TABLE}."starts_at" ;;
     timeframes: [raw,date,week,month,quarter,year]
+    sql: NULLIF(${TABLE}."starts_at",'') ;;
   }
 
   dimension: status {

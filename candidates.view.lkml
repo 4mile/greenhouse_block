@@ -1,8 +1,9 @@
 view: candidates {
   view_label: "Candidates"
-  sql_table_name: WORKSPACE_1155666."in.c-gather-API.candidates" ;;
+  sql_table_name: WORKSPACE_1155666."in.c-wrike-API.candidates" ;;
 
   dimension: id {
+    label: "Candidate Id"
     primary_key: yes
     type: string
     sql: ${TABLE}."id" ;;
@@ -10,15 +11,8 @@ view: candidates {
 
   dimension_group: _timestamp {
     type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
+    timeframes: [raw, date, week, month, quarter, year]
+    hidden: yes
     sql: ${TABLE}."_timestamp" ;;
   }
 
@@ -27,7 +21,7 @@ view: candidates {
 #     group_label: "Custom Fields"
     type: time
     timeframes: [raw,date,week,quarter,year]
-    sql: ${TABLE}."custom_fields_candidate_assessment_results2" ;;
+    sql: NULLIF(${TABLE}."custom_fields_candidate_assessment_results2",'') ;;
   }
 
   dimension: custom_fields_candidate_experience_level {
@@ -60,21 +54,21 @@ view: candidates {
 
   dimension: custom_fields_ccat1_raw_score {
     label: "CCAT1 Raw Score"
-#     group_label: "Custom Fields"
+    group_label: "Assessment Scores"
     type: string
     sql: ${TABLE}."custom_fields_ccat1_raw_score" ;;
   }
 
   dimension: custom_fields_ccat2_raw_score {
     label: "CCAT2 Raw Score"
-#     group_label: "Custom Fields"
+    group_label: "Assessment Scores"
     type: string
     sql: ${TABLE}."custom_fields_ccat2_raw_score" ;;
   }
 
   dimension: custom_fields_csap_score_band {
     label: "CSAP Score Band"
-#     group_label: "Custom Fields"
+    group_label: "Assessment Scores"
     type: string
     sql: ${TABLE}."custom_fields_csap_score_band" ;;
   }
@@ -102,7 +96,7 @@ view: candidates {
 
   dimension: custom_fields_sales_ap_score_band {
     label: "Sales AP Score Band"
-#     group_label: "Custom Fields"
+    group_label: "Assessment Scores"
     type: string
     sql: ${TABLE}."custom_fields_sales_ap_score_band" ;;
   }
@@ -116,14 +110,14 @@ view: candidates {
 
   dimension: custom_fields_ucat1_raw_score {
     label: "UCAT1 Raw Score"
-#     group_label: "Custom Fields"
+    group_label: "Assessment Scores"
     type: string
     sql: ${TABLE}."custom_fields_ucat1_raw_score" ;;
   }
 
   dimension: custom_fields_ucat2_raw_score {
     label: "UCAT2 Raw Score"
-#     group_label: "Custom Fields"
+    group_label: "Assessment Scores"
     type: string
     sql: ${TABLE}."custom_fields_ucat2_raw_score" ;;
   }

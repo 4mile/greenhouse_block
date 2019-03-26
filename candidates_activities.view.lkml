@@ -1,8 +1,9 @@
 view: candidates_activities {
   view_label: "Candidate Activites"
-  sql_table_name: WORKSPACE_1155666."in.c-gather-API.candidates_activities" ;;
+  sql_table_name: WORKSPACE_1155666."in.c-wrike-API.candidates_activities" ;;
 
   dimension: id {
+    label: "Candidate Activity Id"
     primary_key: yes
     type: string
     sql: ${TABLE}."id" ;;
@@ -11,11 +12,12 @@ view: candidates_activities {
   dimension_group: activity_date {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
-    sql: ${TABLE}."created_at" ;;
+    sql: NULLIF(${TABLE}."created_at",'') ;;
   }
 
   dimension: candidate_id {
     type: string
+    hidden: yes
     sql: ${TABLE}."candidate_id" ;;
   }
 
@@ -41,7 +43,7 @@ view: candidates_activities {
             WHEN ${TABLE}."body" ilike '%marked an offer to % as accepted%' THEN 'Offer Accepted'
             WHEN ${TABLE}."body" ilike '%was moved into Assessment%' THEN 'Moved to Assessment'
             WHEN ${TABLE}."body" ilike '%was moved into Onsite Interview%' THEN 'Moved to Onsite Interview'
-        ELSE NULL END ;;
+        ELSE 'Other' END ;;
   }
 
   dimension: body {
@@ -52,13 +54,6 @@ view: candidates_activities {
   dimension: subject {
     type: string
     sql: ${TABLE}."subject" ;;
-  }
-
-  measure: count_candidate {
-    label: "Count of Candidates"
-    type: count_distinct
-    sql: ${TABLE}."candidate_id" ;;
-#     drill_fields: [id]
   }
 
   measure: count_candidate_activities {
