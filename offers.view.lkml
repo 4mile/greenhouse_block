@@ -103,6 +103,27 @@ view: offers {
     label: "Count of Offers"
     type: count_distinct
     sql: ${TABLE}."id" ;;
+
+  }
+
+  measure: count_offer_accepted {
+    label: "Count of Offers Accepted"
+    type: count_distinct
+    sql: ${TABLE}."id" ;;
+    filters: {
+      field: status
+      value: "accepted"
+    }
+  }
+
+  measure: count_offer_rejected {
+    label: "Count of Offers Rejected"
+    type: count_distinct
+    sql: ${TABLE}."id" ;;
+    filters: {
+      field: status
+      value: "rejected"
+    }
   }
 
   measure: total_hire_bonus {

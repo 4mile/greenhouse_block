@@ -43,6 +43,7 @@ view: candidates_activities {
             WHEN ${TABLE}."body" ilike '%marked an offer to % as accepted%' THEN 'Offer Accepted'
             WHEN ${TABLE}."body" ilike '%was moved into Assessment%' THEN 'Moved to Assessment'
             WHEN ${TABLE}."body" ilike '%was moved into Onsite Interview%' THEN 'Moved to Onsite Interview'
+            WHEN ${TABLE}."body" ilike '%marked an offer as sent%' THEN 'Offer Sent'
         ELSE 'Other' END ;;
   }
 
@@ -60,6 +61,16 @@ view: candidates_activities {
     label: "Count of Candidate Activites"
     type: count_distinct
     sql: ${TABLE}."id" ;;
-#     drill_fields: [id]
   }
+
+  measure: count_onsite_interviews {
+    label: "Count of Onsite Interviews"
+    type: count_distinct
+    sql: ${TABLE}."candidate_id" ;;
+    filters: {
+      field: body_category
+      value: "Moved to Onsite Interview"
+    }
+  }
+
 }

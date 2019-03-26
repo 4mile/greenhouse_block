@@ -52,6 +52,16 @@ view: jobs_openings {
     sql: ${TABLE}."status" ;;
   }
 
+  measure: days_job_open {
+    label: "Days Job Title Open"
+    type: max
+    sql: CASE
+          WHEN ${closed_at_date} IS NULL THEN datediff('day', ${opened_at_date}, current_date)
+          ELSE datediff('day', ${opened_at_date}, ${closed_at_date}) END;;
+  }
+
+
+
   measure: count {
     type: count
     drill_fields: [id]

@@ -109,19 +109,53 @@ view: applications {
     sql: ${TABLE}."status" ;;
   }
 
+#   measure: applied_rejection_duration {
+#     label: "Days Between Applied/Rejection"
+#     type: max
+#     sql: datediff('day', ${applied_at_raw}, ${rejected_at_raw})  ;;
+#   }
+
+  measure: avg_applied_rejection_duration {
+    label: "Average Days Between Applied/Rejection"
+    type: average
+    sql: datediff('day', ${applied_at_raw}, ${rejected_at_raw})  ;;
+    value_format_name: decimal_1
+
+  }
+
   measure: application_count {
     label: "Count of Applications"
     type: count_distinct
     sql: ${TABLE}."id" ;;
   }
-#
-#   measure: rejection_count {
-#     label: "Count of Rejections"
-#     type: count_distinct
-#     sql: ${TABLE}."id" ;;
-#     filters: {
-#       field: status
-#       value: "rejected"
-#     }
-#   }
+
+  measure: rejection_count {
+    label: "Count of Rejections"
+    type: count_distinct
+    sql: ${TABLE}."id" ;;
+    filters: {
+      field: status
+      value: "rejected"
+    }
+  }
+
+  measure: hired_count {
+    label: "Count of Application Hired"
+    type: count_distinct
+    sql: ${TABLE}."id" ;;
+    filters: {
+      field: status
+      value: "hired"
+    }
+  }
+
+  measure: active_count {
+    label: "Count of Application Active"
+    type: count_distinct
+    sql: ${TABLE}."id" ;;
+    filters: {
+      field: status
+      value: "active"
+    }
+  }
 }
