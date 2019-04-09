@@ -58,7 +58,7 @@ view: application_stages {
     sql: NULLIF(${TABLE}."moved_to_onsite_interview_date",'') ;;
   }
 
-  measure: count_invited_to_test {
+  measure: invited_to_test_count {
     type: sum
     sql: CASE WHEN ${invited_to_test_date_date} <> 'NULL' THEN 1
          ELSE 0 END;;
