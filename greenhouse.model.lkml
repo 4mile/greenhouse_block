@@ -13,6 +13,20 @@ persist_with: greenhouse_default_datagroup
 explore: applications {
   label: "Applications"
 
+  sql_always_where: ${application_stages.company_name} = 'WRIKE' ;;
+
+  join: demographics {
+    type: left_outer
+    sql_on: ${applications.id} = ${demographics.application_id} ;;
+    relationship: one_to_one
+  }
+
+  join:  application_stages {
+    type:left_outer
+    sql_on: ${applications.id} = ${application_stages.application_id};;
+    relationship: one_to_one
+  }
+
   join:  candidates {
     type:left_outer
     sql_on: ${applications.candidate_id} = ${candidates.id};;
@@ -22,21 +36,21 @@ explore: applications {
   join:  candidates_email_addresses {
     view_label: "Candidates"
     type:left_outer
-    sql_on: ${candidates.id} = ${candidates_email_addresses.candidates_pkey};;
+    sql_on: ${candidates.id} = ${candidates_email_addresses.candidate_id};;
     relationship: one_to_one
   }
 
-  join:  candidates_activities {
-    type:left_outer
-    sql_on: ${applications.candidate_id} = ${candidates_activities.candidate_id};;
-    relationship: many_to_many
-  }
+# removing join - need to confirm w/ JB but there are only timestamps
+#   join:  candidates_activities {
+#     type:left_outer
+#     sql_on: ${applications.candidate_id} = ${candidates_activities.candidate_id};;
+#     relationship: many_to_many
+#   }
 
-# is this data useful or just used to join jobs...
   join:  applications_jobs {
     view_label: "Applications"
     type:left_outer
-    sql_on: ${applications.id} = ${applications_jobs.applications_pkey};;
+    sql_on: ${applications.id} = ${applications_jobs.application_id};;
     relationship: one_to_one
   }
 
@@ -46,21 +60,21 @@ explore: applications {
     relationship: many_to_one
   }
 
-  join:  jobs_openings {
-    type:left_outer
-    sql_on: ${jobs.id} = ${jobs_openings.job_id} ;;
-    relationship: one_to_many
-  }
+#   join:  jobs_openings {
+#     type:left_outer
+#     sql_on: ${jobs.id} = ${jobs_openings.job_id} ;;
+#     relationship: one_to_many
+#   }
 
   join:  jobs_offices {
     type:left_outer
-    sql_on: ${jobs.id} = ${jobs_offices.jobs_pkey};;
+    sql_on: ${jobs.id} = ${jobs_offices.job_id};;
     relationship: one_to_one
   }
 
   join:  jobs_departments {
     type:left_outer
-    sql_on: ${jobs.id} = ${jobs_departments.jobs_pkey};;
+    sql_on: ${jobs.id} = ${jobs_departments.job_id};;
     relationship: one_to_one
   }
 
@@ -76,7 +90,13 @@ explore: applications {
     sql_on: ${applications.source_id} = ${sources.id};;
     relationship: many_to_one
   }
+
+  join: scheduled_interviews {
+    type:left_outer
+    sql_on: ${applications.id} = ${scheduled_interviews.application_id};;
+    relationship: many_to_one
+  }
 }
 
-explore: candidate_detail {}
-explore: incremental {}
+# explore: candidate_detail {}
+# explore: incremental {}

@@ -1,6 +1,6 @@
 view: jobs_openings {
   view_label: "Job Openings"
-  sql_table_name: WORKSPACE_1155666."in.c-wrike-API.jobs_openings" ;;
+  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.jobs_openings" ;;
 
   dimension: id {
     primary_key: yes
@@ -25,7 +25,7 @@ view: jobs_openings {
   dimension_group: closed_at {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
-    sql: NULLIF(${TABLE}."closed_at",'') ;;
+    sql: CAST(NULLIF(${TABLE}."closed_at",'') as datetime) ;;
   }
 
   dimension: job_id {
@@ -37,7 +37,7 @@ view: jobs_openings {
   dimension_group: opened_at {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
-    sql: NULLIF(${TABLE}."opened_at",'') ;;
+    sql: CAST(NULLIF(${TABLE}."opened_at",'') as datetime) ;;
   }
 
 # this might be the rec-id
@@ -52,18 +52,40 @@ view: jobs_openings {
     sql: ${TABLE}."status" ;;
   }
 
-  measure: days_job_open {
-    label: "Days Job Title Open"
-    type: max
+  measure: avg_days_job_open {
+    label: "Avg Days Opened - All"
+    type: average
     sql: CASE
           WHEN ${closed_at_date} IS NULL THEN datediff('day', ${opened_at_date}, current_date)
           ELSE datediff('day', ${opened_at_date}, ${closed_at_date}) END;;
+    value_format_name: decimal_0
   }
 
-
-
-  measure: count {
-    type: count
-    drill_fields: [id]
+  measure: avg_days_open_closed {
+    label: "Avg Days Opened - For Closed Jobs"
+    type: average
+    sql: CASE
+          WHEN ${closed_at_date} IS NULL THEN NULL
+          ELSE datediff('day', ${opened_at_date}, ${closed_at_date}) END;;
+    value_format_name: decimal_0
   }
+
+  measure: job_open_count {
+    type: count_distinct
+    sql: ${TABLE}."id" ;;
+    filters: {
+      field: status
+      value: "open"
+    }
+  }
+
+  measure: job_closed_count {
+    type: count_distinct
+    sql: ${TABLE}."id" ;;
+    filters: {
+      field: status
+      value: "closed"
+    }
+  }
+
 }

@@ -1,32 +1,23 @@
 view: applications_jobs {
   view_label: "Application Jobs"
-  sql_table_name: WORKSPACE_1155666."in.c-wrike-API.applications_jobs";;
+  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.applications_jobs";;
 
-  dimension_group: _timestamp {
-    hidden: yes
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}."_timestamp" ;;
-  }
 
-  dimension: applications_pkey {
+  dimension: application_id {
     primary_key: yes
     hidden: yes
     type: string
-    sql: ${TABLE}."applications_pkey" ;;
+    sql: ${TABLE}."application_id" ;;
   }
 
   dimension: job_id {
     hidden: yes
     type: string
     sql: ${TABLE}."job_id" ;;
+  }
+
+  dimension: job_name {
+    type: string
+    sql: ${TABLE}."job_name" ;;
   }
 }

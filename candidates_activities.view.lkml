@@ -1,6 +1,6 @@
 view: candidates_activities {
   view_label: "Candidate Activites"
-  sql_table_name: WORKSPACE_1155666."in.c-wrike-API.candidates_activities" ;;
+  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.candidates_activities" ;;
 
   dimension: id {
     label: "Candidate Activity Id"
@@ -57,14 +57,12 @@ view: candidates_activities {
     sql: ${TABLE}."subject" ;;
   }
 
-  measure: count_candidate_activities {
-    label: "Count of Candidate Activites"
+  measure: candidate_activities_count {
     type: count_distinct
     sql: ${TABLE}."id" ;;
   }
 
-  measure: count_onsite_interviews {
-    label: "Count of Onsite Interviews"
+  measure: onsite_interviews_count {
     type: count_distinct
     sql: ${TABLE}."candidate_id" ;;
     filters: {

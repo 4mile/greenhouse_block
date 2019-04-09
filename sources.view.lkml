@@ -1,6 +1,6 @@
 view: sources {
   view_label: "Sources"
-  sql_table_name: WORKSPACE_1155666."in.c-wrike-API.sources" ;;
+  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.sources" ;;
 
   dimension: id {
     label: "Source Id"
@@ -9,21 +9,23 @@ view: sources {
     sql: ${TABLE}."id" ;;
   }
 
-  dimension_group: _timestamp {
-    hidden: yes
-    type: time
-    timeframes: [raw, date, week, month, quarter, year]
-    sql: ${TABLE}."_timestamp" ;;
-  }
-
   dimension: name {
     label: "Source Name"
     type: string
     sql: ${TABLE}."name" ;;
   }
 
+  dimension: source_type_id {
+    type: string
+    sql: ${TABLE}."source_type_id" ;;
+  }
+
+  dimension: source_type {
+    type: string
+    sql: ${TABLE}."source_type" ;;
+  }
+
   measure: source_count {
-    label: "Count of Sources"
     type: count_distinct
     sql: ${TABLE}."id" ;;
   }

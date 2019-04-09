@@ -1,6 +1,6 @@
 view: jobs_departments {
   view_label: "Job Departments"
-  sql_table_name: WORKSPACE_1155666."in.c-wrike-API.jobs_departments" ;;
+  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.jobs_departments" ;;
 
   dimension: id {
     label: "Department Id"
@@ -8,18 +8,11 @@ view: jobs_departments {
     sql: ${TABLE}."id" ;;
   }
 
-  dimension_group: _timestamp {
-    type: time
-    timeframes: [raw, date, week, month, quarter, year]
-    hidden: yes
-    sql: ${TABLE}."_timestamp" ;;
-  }
-
-  dimension: jobs_pkey {
+  dimension: job_id {
     primary_key: yes
     hidden: yes
     type: string
-    sql: ${TABLE}."jobs_pkey" ;;
+    sql: ${TABLE}."job_id" ;;
   }
 
   dimension: name {
@@ -28,8 +21,21 @@ view: jobs_departments {
     sql: ${TABLE}."name" ;;
   }
 
+  dimension: name_category {
+    label: "Department Category"
+    type: string
+    sql: CASE
+          WHEN LEFT(${name},LENGTH(${name})-(LENGTH(${name})-(CHARINDEX(',', ${name})-1))) = '' THEN ${name}
+            ELSE LEFT(${name},LENGTH(${name})-(LENGTH(${name})-(CHARINDEX(',', ${name})-1))) END;;
+  }
+
+  dimension: parent_id {
+    hidden: yes
+    type: string
+    sql: ${TABLE}."parent_id" ;;
+  }
+
   measure: department_count {
-    label: "Count of Departments"
     type: count_distinct
     sql: ${TABLE}."id" ;;
   }

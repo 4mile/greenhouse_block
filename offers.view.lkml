@@ -1,6 +1,6 @@
 view: offers {
   view_label: "Offers"
-  sql_table_name: WORKSPACE_1155666."in.c-wrike-API.offers" ;;
+  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.offers" ;;
 
   dimension: id {
     label: "Offer Id"
@@ -9,23 +9,86 @@ view: offers {
     sql: ${TABLE}."id" ;;
   }
 
-  dimension_group: _timestamp {
-    type: time
-    hidden: yes
-    timeframes: [raw, date, week, month, quarter, year]
-    sql: ${TABLE}."_timestamp" ;;
-  }
-
   dimension: application_id {
     hidden: yes
     type: string
     sql: ${TABLE}."application_id" ;;
   }
 
+  dimension: version {
+    type: number
+    sql: ${TABLE}."version" ;;
+  }
+
+  dimension: job_id {
+    hidden: yes
+    type: string
+    sql: ${TABLE}."job_id" ;;
+  }
+
+  dimension: candidate_id {
+    hidden: yes
+    type: string
+    sql: ${TABLE}."candidate_id" ;;
+  }
+
   dimension_group: created_at {
     type: time
     timeframes: [raw,date,week,month,quarter,year]
-    sql: NULLIF(${TABLE}."created_at",'') ;;
+    sql: CAST(NULLIF(${TABLE}."created_at",'') AS datetime) ;;
+  }
+
+  dimension_group: updated_at {
+    type: time
+    timeframes: [raw,date,week,month,quarter,year]
+    sql: CAST(NULLIF(${TABLE}."updated_at",'') AS datetime) ;;
+  }
+
+  dimension_group: sent_at {
+    type: time
+    timeframes: [raw,date,week,month,quarter,year]
+    sql: NULLIF(${TABLE}."sent_at",'') ;;
+  }
+
+  dimension_group: resolved_at {
+    type: time
+    timeframes: [raw,date,week,month,quarter,year]
+    sql: NULLIF(${TABLE}."resolved_at",'') ;;
+  }
+
+  dimension_group: starts_at {
+    type: time
+    timeframes: [raw,date,week,month,quarter,year]
+    sql: NULLIF(${TABLE}."starts_at",'') ;;
+  }
+
+  dimension: status {
+    type: string
+    sql: ${TABLE}."status" ;;
+  }
+
+  dimension: custom_fields_offer_type {
+    label: "Offer Type"
+    type: string
+    sql: ${TABLE}."custom_fields_offer_type" ;;
+  }
+
+  dimension: custom_fields_offer_status {
+    label: "Offer Status"
+    type: string
+    sql: ${TABLE}."custom_fields_offer_status" ;;
+  }
+
+  dimension: custom_fields_offer_reject_reason {
+    label: "Offer Reject Reason"
+    type: string
+    sql: ${TABLE}."custom_fields_offer_reject_reason" ;;
+  }
+
+  dimension: custom_fields_requisition_filled {
+    label: "Requisition Filled "
+    type: string
+    sql: ${TABLE}."custom_fields_requisition_filled" ;;
   }
 
   dimension: custom_fields_hire_base {
@@ -40,74 +103,25 @@ view: offers {
     sql: ${TABLE}."custom_fields_hire_bonus" ;;
   }
 
-  dimension: custom_fields_hire_commission_target {
-    label: "Hire Commision Target"
-    type: number
-    sql: ${TABLE}."custom_fields_hire_commission_target" ;;
-  }
-
   dimension: custom_fields_hire_hourly {
     label: "Hire Hourly"
     type: number
     sql: ${TABLE}."custom_fields_hire_hourly" ;;
   }
 
-  dimension: custom_fields_offer_reject_reason {
-    label: "Offer Reject Reason"
-    type: string
-    sql: ${TABLE}."custom_fields_offer_reject_reason" ;;
+  dimension: custom_fields_hire_commission_target {
+    label: "Hire Commision Target"
+    type: number
+    sql: ${TABLE}."custom_fields_hire_commission_target" ;;
   }
 
-  dimension: custom_fields_offer_status {
-    label: "Offer Status"
-    type: string
-    sql: ${TABLE}."custom_fields_offer_status" ;;
-  }
-
-  dimension: custom_fields_offer_type {
-    label: "Offer Type"
-    type: string
-    sql: ${TABLE}."custom_fields_offer_type" ;;
-  }
-
-  dimension: custom_fields_requisition_filled {
-    label: "Requisition Filled "
-    type: string
-    sql: ${TABLE}."custom_fields_requisition_filled" ;;
-  }
-
-  dimension: jobs_id {
-    hidden: yes
-    type: string
-    sql: ${TABLE}."jobs_id" ;;
-  }
-
-  dimension_group: sent_at {
-    type: time
-    timeframes: [raw,date,week,month,quarter,year]
-    sql: NULLIF(${TABLE}."sent_at",'') ;;
-  }
-
-  dimension_group: starts_at {
-    type: time
-    timeframes: [raw,date,week,month,quarter,year]
-    sql: NULLIF(${TABLE}."starts_at",'') ;;
-  }
-
-  dimension: status {
-    type: string
-    sql: ${TABLE}."status" ;;
-  }
-
-  measure: count_offer {
-    label: "Count of Offers"
+  measure: offer_count {
     type: count_distinct
     sql: ${TABLE}."id" ;;
 
   }
 
-  measure: count_offer_accepted {
-    label: "Count of Offers Accepted"
+  measure: offer_accepted_count {
     type: count_distinct
     sql: ${TABLE}."id" ;;
     filters: {
@@ -116,8 +130,7 @@ view: offers {
     }
   }
 
-  measure: count_offer_rejected {
-    label: "Count of Offers Rejected"
+  measure: offer_rejected_count {
     type: count_distinct
     sql: ${TABLE}."id" ;;
     filters: {

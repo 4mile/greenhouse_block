@@ -1,6 +1,6 @@
 view: candidates {
   view_label: "Candidates"
-  sql_table_name: WORKSPACE_1155666."in.c-wrike-API.candidates" ;;
+  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.candidates" ;;
 
   dimension: id {
     label: "Candidate Id"
@@ -9,68 +9,109 @@ view: candidates {
     sql: ${TABLE}."id" ;;
   }
 
-  dimension_group: _timestamp {
+  dimension: first_name {
+    group_label: "Candidate Info"
+    type: string
+    sql: ${TABLE}."first_name" ;;
+  }
+
+  dimension: last_name {
+    group_label: "Candidate Info"
+    type: string
+    sql: ${TABLE}."last_name" ;;
+  }
+
+  dimension: company {
+    group_label: "Candidate Info"
+    type: string
+    sql: ${TABLE}."company" ;;
+  }
+
+  dimension: title {
+    group_label: "Candidate Info"
+    type: string
+    sql: ${TABLE}."title" ;;
+  }
+
+  dimension_group: created_at {
+#     group_label: "Candidate Info"
     type: time
-    timeframes: [raw, date, week, month, quarter, year]
-    hidden: yes
-    sql: ${TABLE}."_timestamp" ;;
+    timeframes: [raw,date,week,month,quarter,year]
+    sql: NULLIF(${TABLE}."created_at",'') ;;
   }
 
-  dimension_group: custom_fields_candidate_assessment_results2 {
-    label: "Candidate Assessment Results"
-#     group_label: "Custom Fields"
+  dimension_group: updated_at {
+#     group_label: "Candidate Info"
     type: time
-    timeframes: [raw,date,week,quarter,year]
-    sql: NULLIF(${TABLE}."custom_fields_candidate_assessment_results2",'') ;;
+    timeframes: [raw,date,week,month,quarter,year]
+    sql: NULLIF(${TABLE}."updated_at",'') ;;
   }
 
-  dimension: custom_fields_candidate_experience_level {
-    label: "Candidate Experience Level"
-#     group_label: "Custom Fields"
-    type: string
-    sql: ${TABLE}."custom_fields_candidate_experience_level" ;;
+  dimension_group: last_activity_at {
+#     group_label: "Candidate Info"
+    type: time
+    timeframes: [raw,date,week,month,quarter,year]
+    sql: NULLIF(${TABLE}."last_activity_at",'') ;;
   }
 
-  dimension: custom_fields_candidate_no_show {
-    label: "Candidate No Show"
-#     group_label: "Custom Fields"
+  dimension: recruiter_id {
+    group_label: "Recruiter Info"
     type: string
-    sql: ${TABLE}."custom_fields_candidate_no_show" ;;
+    sql: ${TABLE}."recruiter_id" ;;
   }
 
-  dimension: custom_fields_candidate_sourced {
-    label: "Sourced"
-#     group_label: "Custom Fields"
+  dimension: recruiter_first_name {
+    group_label: "Recruiter Info"
     type: string
-    sql: ${TABLE}."custom_fields_candidate_sourced" ;;
+    sql: ${TABLE}."recruiter_first_name" ;;
   }
 
-  dimension: custom_fields_candidate_status {
-    label: "Status"
-#     group_label: "Custom Fields"
+  dimension: recruiter_last_name {
+    group_label: "Recruiter Info"
     type: string
-    sql: ${TABLE}."custom_fields_candidate_status" ;;
+    sql: ${TABLE}."recruiter_last_name" ;;
   }
 
-  dimension: custom_fields_ccat1_raw_score {
-    label: "CCAT1 Raw Score"
-    group_label: "Assessment Scores"
+  dimension: recruiter_full_name {
+    group_label: "Recruiter Info"
     type: string
-    sql: ${TABLE}."custom_fields_ccat1_raw_score" ;;
+    sql: ${TABLE}."recruiter_full_name" ;;
   }
 
-  dimension: custom_fields_ccat2_raw_score {
-    label: "CCAT2 Raw Score"
-    group_label: "Assessment Scores"
+  dimension: recruiter_employee_id {
+    group_label: "Recruiter Info"
     type: string
-    sql: ${TABLE}."custom_fields_ccat2_raw_score" ;;
+    sql: ${TABLE}."recruiter_full_name" ;;
   }
 
-  dimension: custom_fields_csap_score_band {
-    label: "CSAP Score Band"
-    group_label: "Assessment Scores"
+  dimension: coordinator_id {
+    group_label: "Coordinator Info"
     type: string
-    sql: ${TABLE}."custom_fields_csap_score_band" ;;
+    sql: ${TABLE}."coordinator_id" ;;
+  }
+
+  dimension: coordinator_first_name {
+    group_label: "Coordinator Info"
+    type: string
+    sql: ${TABLE}."coordinator_first_name" ;;
+  }
+
+  dimension: coordinator_last_name {
+    group_label: "Coordinator Info"
+    type: string
+    sql: ${TABLE}."coordinator_last_name" ;;
+  }
+
+  dimension: coordinator_full_name {
+    group_label: "Coordinator Info"
+    type: string
+    sql: ${TABLE}."coordinator_full_name" ;;
+  }
+
+  dimension: coordinator_employee_id {
+    group_label: "Coordinator Info"
+    type: string
+    sql: ${TABLE}."coordinator_employee_id" ;;
   }
 
   dimension: custom_fields_desired_salary {
@@ -80,18 +121,40 @@ view: candidates {
     sql: ${TABLE}."custom_fields_desired_salary" ;;
   }
 
-  dimension: custom_fields_epp {
-    label: "EPP"
-#     group_label: "Custom Fields"
-    type: string
-    sql: ${TABLE}."custom_fields_epp" ;;
-  }
-
   dimension: custom_fields_invite_to_expensify {
     label: "Invite to Expensify"
 #     group_label: "Custom Fields"
     type: string
     sql: ${TABLE}."custom_fields_invite_to_expensify" ;;
+  }
+
+  dimension: custom_fields_sponsorship {
+    label: "Sponsorship"
+#     group_label: "Custom Fields"
+    type: string
+    sql: ${TABLE}."custom_fields_sponsorship" ;;
+  }
+
+  dimension_group: custom_fields_candidate_assessment_results2 {
+    label: "Candidate Assessment Results"
+#     group_label: "Custom Fields"
+    type: time
+    timeframes: [raw,date,week,month,quarter,year]
+    sql: NULLIF(${TABLE}."custom_fields_candidate_assessment_results2",'') ;;
+  }
+
+  dimension: custom_fields_candidate_status {
+    label: "Status"
+#     group_label: "Custom Fields"
+    type: string
+    sql: ${TABLE}."custom_fields_candidate_status" ;;
+  }
+
+  dimension: custom_fields_candidate_experience_level {
+    label: "Candidate Experience Level"
+#     group_label: "Custom Fields"
+    type: string
+    sql: ${TABLE}."custom_fields_candidate_experience_level" ;;
   }
 
   dimension: custom_fields_sales_ap_score_band {
@@ -101,11 +164,18 @@ view: candidates {
     sql: ${TABLE}."custom_fields_sales_ap_score_band" ;;
   }
 
-  dimension: custom_fields_sponsorship {
-    label: "Sponsorship"
+  dimension: custom_fields_csap_score_band {
+    label: "CSAP Score Band"
+    group_label: "Assessment Scores"
+    type: string
+    sql: ${TABLE}."custom_fields_csap_score_band" ;;
+  }
+
+  dimension: custom_fields_candidate_no_show {
+    label: "Candidate No Show"
 #     group_label: "Custom Fields"
     type: string
-    sql: ${TABLE}."custom_fields_sponsorship" ;;
+    sql: ${TABLE}."custom_fields_candidate_no_show" ;;
   }
 
   dimension: custom_fields_ucat1_raw_score {
@@ -122,19 +192,35 @@ view: candidates {
     sql: ${TABLE}."custom_fields_ucat2_raw_score" ;;
   }
 
-  dimension: first_name {
-    group_label: "Candidate Info"
+  dimension: custom_fields_candidate_sourced {
+    label: "Sourced"
+#     group_label: "Custom Fields"
     type: string
-    sql: ${TABLE}."first_name" ;;
+    sql: ${TABLE}."custom_fields_candidate_sourced" ;;
   }
 
-  dimension: last_name {
-    group_label: "Candidate Info"
+  dimension: custom_fields_ccat1_raw_score {
+    label: "CCAT1 Raw Score"
+    group_label: "Assessment Scores"
     type: string
-    sql: ${TABLE}."last_name" ;;
+    sql: ${TABLE}."custom_fields_ccat1_raw_score" ;;
   }
-  measure: count_candidate_distinct {
-    label: "Count of Candidates"
+
+  dimension: custom_fields_ccat2_raw_score {
+    label: "CCAT2 Raw Score"
+    group_label: "Assessment Scores"
+    type: string
+    sql: ${TABLE}."custom_fields_ccat2_raw_score" ;;
+  }
+
+  dimension: custom_fields_epp {
+    label: "EPP"
+#     group_label: "Custom Fields"
+    type: string
+    sql: ${TABLE}."custom_fields_epp" ;;
+  }
+
+  measure: candidate_distinct_count {
     type: count_distinct
     sql: ${TABLE}."id";;
   }
