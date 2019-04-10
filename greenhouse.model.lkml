@@ -60,11 +60,11 @@ explore: applications {
     relationship: many_to_one
   }
 
-#   join:  jobs_openings {
-#     type:left_outer
-#     sql_on: ${jobs.id} = ${jobs_openings.job_id} ;;
-#     relationship: one_to_many
-#   }
+  join:  jobs_openings {
+    type:left_outer
+    sql_on: ${jobs.id} = ${jobs_openings.job_id} ;;
+    relationship: one_to_many
+  }
 
   join:  jobs_offices {
     type:left_outer
