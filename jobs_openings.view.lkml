@@ -9,38 +9,7 @@ view: jobs_openings {
     sql: ${TABLE}."id" ;;
   }
 
-  dimension_group: _timestamp {
-    type: time
-    timeframes: [raw, date, week, month, quarter, year]
-    hidden: yes
-    sql: ${TABLE}."_timestamp" ;;
-  }
-
-  dimension: application_id {
-    label: "Application Id"
-    type: string
-    sql: ${TABLE}."application_id" ;;
-  }
-
-  dimension_group: closed_at {
-    type: time
-    timeframes: [raw, date, week, month, quarter, year]
-    sql: CAST(NULLIF(${TABLE}."closed_at",'') as datetime) ;;
-  }
-
-  dimension: job_id {
-    label: "Job Id"
-    type: string
-    sql: ${TABLE}."job_id" ;;
-  }
-
-  dimension_group: opened_at {
-    type: time
-    timeframes: [raw, date, week, month, quarter, year]
-    sql: CAST(NULLIF(${TABLE}."opened_at",'') as datetime) ;;
-  }
-
-# this might be the rec-id
+# this is rec-id
   dimension: opening_id {
     label: "Opening Id"
     type: string
@@ -50,6 +19,38 @@ view: jobs_openings {
   dimension: status {
     type: string
     sql: ${TABLE}."status" ;;
+  }
+
+  dimension_group: opened_at {
+    type: time
+    timeframes: [raw, date, week, month, quarter, year]
+    sql: CAST(NULLIF(${TABLE}."opened_at",'') as datetime) ;;
+  }
+
+  dimension_group: closed_at {
+    type: time
+    timeframes: [raw, date, week, month, quarter, year]
+    sql: CAST(NULLIF(${TABLE}."closed_at",'') as datetime) ;;
+  }
+
+  dimension: application_id {
+    type: string
+    sql: ${TABLE}."application_id" ;;
+  }
+
+  dimension: close_reason_id {
+    type: string
+    sql: ${TABLE}."close_reason_id" ;;
+  }
+
+  dimension: close_reason_name {
+    type: string
+    sql: ${TABLE}."close_reason_name" ;;
+  }
+
+  dimension: parent_job_id {
+    type: string
+    sql: ${TABLE}."parent_job_id" ;;
   }
 
   measure: avg_days_job_open {

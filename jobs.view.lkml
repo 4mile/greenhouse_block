@@ -37,25 +37,25 @@ view: jobs {
   dimension_group: created_at {
     type: time
     timeframes: [raw,date,week,month,quarter,year]
-    sql: NULLIF(${TABLE}."created_at",'') ;;
+    sql: CAST(NULLIF(${TABLE}."created_at",'') AS datetime) ;;
   }
 
   dimension_group: opened_at {
     type: time
     timeframes: [raw,date,week,month,quarter,year]
-    sql: NULLIF(${TABLE}."opened_at",'') ;;
+    sql: CAST(NULLIF(${TABLE}."opened_at",'') AS datetime) ;;
   }
 
   dimension_group: closed_at {
     type: time
     timeframes: [raw,date,week,month,quarter,year]
-    sql: NULLIF(${TABLE}."closed_at",'') ;;
+    sql: CAST(NULLIF(${TABLE}."closed_at",'') AS datetime) ;;
   }
 
   dimension_group: updated_at {
     type: time
     timeframes: [raw,date,week,month,quarter,year]
-    sql: NULLIF(${TABLE}."updated_at",'') ;;
+    sql: CAST(NULLIF(${TABLE}."updated_at",'') AS datetime);;
   }
 
   dimension: custom_fields_budgeted {
@@ -155,6 +155,53 @@ view: jobs {
   measure: jobs_count {
     type: count_distinct
     sql: ${TABLE}."id" ;;
+  }
+
+  measure: open_jobs_count {
+    type: count_distinct
+    sql: ${TABLE}."id" ;;
+
+    filters: {
+      field: status
+      value: "open"
+    }
+  }
+
+  measure: close_jobs_count {
+    type: count_distinct
+    sql: ${TABLE}."id" ;;
+
+    filters: {
+      field: status
+      value: "closed"
+    }
+  }
+
+  measure: avg_days_job_open_all {
+    label: "Avg Days Opened - All"
+    type: average
+    sql: CASE
+          WHEN ${closed_at_date} IS NULL THEN datediff('day', ${opened_at_date}, current_date)
+          ELSE datediff('day', ${opened_at_date}, ${closed_at_date}) END;;
+    value_format_name: decimal_0
+  }
+
+  measure: avg_days_open_closed {
+    label: "Avg Days Opened - For Closed Jobs"
+    type: average
+    sql: CASE
+          WHEN ${closed_at_date} IS NULL THEN NULL
+          ELSE datediff('day', ${opened_at_date}, ${closed_at_date}) END;;
+    value_format_name: decimal_0
+  }
+
+  measure: avg_days_job_open {
+    label: "Avg Days Opened - For Open Jobs"
+    type: average
+    sql: CASE
+          WHEN ${closed_at_date} IS NULL THEN datediff('day', ${opened_at_date}, current_date)
+          ELSE NULL END;;
+    value_format_name: decimal_0
   }
 
 }

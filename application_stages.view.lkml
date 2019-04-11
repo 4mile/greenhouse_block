@@ -1,20 +1,10 @@
 view: application_stages {
   view_label: "Application Stages"
-  sql_table_name: WORKSPACE_493757853."in.c-greenhouseWebhooks.application_stages" ;;
-
-#   dimension_group: _timestamp {
-#     type: time
-#     timeframes: [
-#       raw,
-#       time,
-#       date,
-#       week,
-#       month,
-#       quarter,
-#       year
-#     ]
-#     sql: ${TABLE}."_timestamp" ;;
-#   }
+  derived_table: {
+    sql: SELECT *
+         FROM WORKSPACE_493757853."in.c-greenhouseWebhooks.application_stages"
+         WHERE "company_name" = 'WRIKE';;
+  }
 
   dimension: application_id {
     primary_key: yes

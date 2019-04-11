@@ -116,12 +116,13 @@ view: offers {
   }
 
   measure: offer_count {
+    group_label: "Offer"
     type: count_distinct
     sql: ${TABLE}."id" ;;
-
   }
 
   measure: offer_accepted_count {
+    group_label: "Offer"
     type: count_distinct
     sql: ${TABLE}."id" ;;
     filters: {
@@ -131,6 +132,7 @@ view: offers {
   }
 
   measure: offer_rejected_count {
+    group_label: "Offer"
     type: count_distinct
     sql: ${TABLE}."id" ;;
     filters: {

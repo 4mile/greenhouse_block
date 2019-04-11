@@ -13,7 +13,7 @@ persist_with: greenhouse_default_datagroup
 explore: applications {
   label: "Applications"
 
-  sql_always_where: ${application_stages.company_name} = 'WRIKE' ;;
+#   sql_always_where: ${application_stages.company_name} = 'WRIKE' ;;
 
   join: demographics {
     type: left_outer
@@ -60,11 +60,12 @@ explore: applications {
     relationship: many_to_one
   }
 
-  join:  jobs_openings {
-    type:left_outer
-    sql_on: ${jobs.id} = ${jobs_openings.job_id} ;;
-    relationship: one_to_many
-  }
+#  i don't think this table is needed; everything is in jobs
+#   join:  jobs_openings {
+#     type:left_outer
+#     sql_on: ${jobs.id} = ${jobs_openings.job_id} ;;
+#     relationship: one_to_many
+#   }
 
   join:  jobs_offices {
     type:left_outer
