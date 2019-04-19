@@ -108,6 +108,13 @@ view: applications {
     value_format_name: decimal_1
   }
 
+#   measure: avg_applied_offer_duration {
+#     label: "Average Days Between Applied/Offer"
+#     type: average
+#     sql: datediff('day', ${applied_at_raw}, ${offers.sent_at_raw})  ;;
+#     value_format_name: decimal_1
+#   }
+
   measure: application_count {
     type: count_distinct
     sql: ${TABLE}."id" ;;

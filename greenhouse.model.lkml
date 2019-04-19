@@ -21,6 +21,12 @@ explore: applications {
     relationship: one_to_one
   }
 
+  join:  candidates_stage_changes {
+    type:left_outer
+    sql_on: ${applications.id} = ${candidates_stage_changes.application_id};;
+    relationship: one_to_many
+  }
+
   join:  application_stages {
     type:left_outer
     sql_on: ${applications.id} = ${application_stages.application_id};;
@@ -98,6 +104,21 @@ explore: applications {
     relationship: many_to_one
   }
 }
+
+# explore: candidates_stage_changes {
+#
+#   join: applications {
+#     type: left_outer
+#     sql_on: ${candidates_stage_changes.application_id} = ${applications.id} ;;
+#     relationship: many_to_many
+#   }
+#
+#   join:  candidates {
+#     type:left_outer
+#     sql_on: ${applications.candidate_id} = ${candidates.id};;
+#     relationship: many_to_one
+#   }
+# }
 
 # explore: candidate_detail {}
 # explore: incremental {}
