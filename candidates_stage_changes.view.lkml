@@ -57,6 +57,21 @@ view: candidates_stage_changes {
       sql: ${TABLE}."_timestamp" ;;
     }
 
+#     dimension_group: application_review_date {
+#       type: time
+#       timeframes: [raw,time,date,week,month,quarter,year]
+#       sql: CASE WHEN ${stage_name} = 'Application Review' THEN ${unix_timestamp_raw}
+#             ELSE NULL END;;
+#     }
+#
+#     dimension_group: offer_review_date {
+#       type: time
+#       timeframes: [raw,time,date,week,month,quarter,year]
+#       sql: CASE WHEN ${stage_name} = 'Offer' THEN ${unix_timestamp_raw}
+#         ELSE NULL END;;
+#     }
+
+
     measure: stage_count {
       type: count_distinct
       sql: ${stage_id};;
@@ -66,4 +81,10 @@ view: candidates_stage_changes {
       type: count_distinct
       sql: ${application_id};;
     }
+
+#     measure: duration_between_review_offer {
+#       label: "Avg Days Between Application Review & Offer"
+#       type: average
+#       sql: datediff('day', ${application_review_date_raw}, ${offer_review_date_raw});;
+#     }
   }
