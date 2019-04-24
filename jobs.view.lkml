@@ -157,6 +157,12 @@ view: jobs {
     sql: ${TABLE}."id" ;;
   }
 
+  measure: req_count {
+    type: count_distinct
+    sql: ${TABLE}."requisition_id" ;;
+  }
+
+
   measure: open_jobs_count {
     type: count_distinct
     sql: ${TABLE}."id" ;;
@@ -200,6 +206,11 @@ view: jobs {
           ELSE datediff('day', ${opened_at_date}, ${closed_at_date}) END;;
     value_format_name: decimal_0
   }
+
+#   measure: avg_days_open_to_offer {
+#     type: average
+#     sql: datediff('day',${opened_at_date}, ${offers.sent_at_date}) ;;
+#   }
 
   measure: avg_days_job_open {
     label: "Avg Days Opened - For Open Jobs"

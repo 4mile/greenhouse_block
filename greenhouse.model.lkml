@@ -66,12 +66,11 @@ explore: applications {
     relationship: many_to_one
   }
 
-#  i don't think this table is needed; everything is in jobs
-#   join:  jobs_openings {
-#     type:left_outer
-#     sql_on: ${jobs.id} = ${jobs_openings.job_id} ;;
-#     relationship: one_to_many
-#   }
+  join:  jobs_openings {
+    type:left_outer
+    sql_on: ${jobs.id} = ${jobs_openings.parent_job_id} ;;
+    relationship: one_to_many
+  }
 
   join:  jobs_offices {
     type:left_outer
@@ -87,8 +86,9 @@ explore: applications {
 
   join:  offers {
     type:left_outer
-    sql_on: ${applications.id} = ${offers.application_id} ;;
-    relationship: one_to_many
+    sql_on: ${applications.id} = ${offers.application_id}
+        AND ${jobs.id} = ${offers.job_id};;
+    relationship: one_to_one
   }
 
 #   applications."source_id" = sources."id"
@@ -123,11 +123,17 @@ explore: applications {
 # explore: candidate_detail {}
 # explore: incremental {}
 
-explore: jobs {
-
-  join: offers {
-    type: left_outer
-    relationship: one_to_many
-    sql_on:  ${jobs.id} = ${offers.job_id};;
-  }
-}
+# explore: jobs {
+#
+#   join: offers {
+#     type: left_outer
+#     relationship: one_to_many
+#     sql_on:  ${jobs.id} = ${offers.job_id};;
+#   }
+#
+#   join:  candidates {
+#     type:left_outer
+#     sql_on: ${offers.candidate_id} = ${candidates.id};;
+#     relationship: many_to_one
+#   }
+# }
