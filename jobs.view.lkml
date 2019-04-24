@@ -177,6 +177,12 @@ view: jobs {
     }
   }
 
+#   measure: avg_days_open_to_offer {
+#     label: "Average Days Job Opened to Offer"
+#     type: average
+#     sql: datediff('day',${opened_at_raw},${offers.sent_at_raw}) ;;
+#   }
+
   measure: avg_days_job_open_all {
     label: "Avg Days Opened - All"
     type: average

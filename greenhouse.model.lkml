@@ -54,7 +54,7 @@ explore: applications {
 #   }
 
   join:  applications_jobs {
-    view_label: "Applications"
+#     view_label: "Applications"
     type:left_outer
     sql_on: ${applications.id} = ${applications_jobs.application_id};;
     relationship: one_to_one
@@ -87,7 +87,7 @@ explore: applications {
 
   join:  offers {
     type:left_outer
-    sql_on: ${applications.id} = ${offers.application_id};;
+    sql_on: ${applications.id} = ${offers.application_id} ;;
     relationship: one_to_many
   }
 
@@ -122,3 +122,12 @@ explore: applications {
 
 # explore: candidate_detail {}
 # explore: incremental {}
+
+explore: jobs {
+
+  join: offers {
+    type: left_outer
+    relationship: one_to_many
+    sql_on:  ${jobs.id} = ${offers.job_id};;
+  }
+}

@@ -1,6 +1,17 @@
 view: offers {
   view_label: "Offers"
-  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.offers" ;;
+  derived_table: {
+  sql: SELECT a.*
+       FROM WORKSPACE_493757853."in.c-wrike-API-Milepost.offers" a
+       JOIN (SELECT "application_id"
+                   ,"job_id"
+                   ,max("version") AS max_offer_version
+             FROM WORKSPACE_493757853."in.c-wrike-API-Milepost.offers"
+             GROUP BY 1,2) b ON a."application_id" = b."application_id"
+                            AND a."job_id" = b."job_id"
+                            AND a."version" = b.max_offer_version
+        ;;
+  }
 
   dimension: id {
     label: "Offer Id"
