@@ -1,3 +1,5 @@
+explore: demographics {}
+
 view: demographics {
     view_label: "Demographics"
     sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.demographics" ;;
@@ -37,6 +39,7 @@ view: demographics {
   dimension_group: submitted_at {
     type: time
     timeframes: [raw,date,week,month,quarter,year]
-    sql: NULLIF(${TABLE}."submitted_at",'') ;;
+    sql: cast(${TABLE}."submitted_at" as date) ;;
   }
+
 }
