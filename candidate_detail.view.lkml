@@ -15,7 +15,7 @@ view: candidate_detail {
           END AS activity
         , NULLIF("created_at",'') AS activity_date
       FROM
-        WORKSPACE_1155666."in.c-gather-API.candidates_activities"
+        WORKSPACE_493757853."in.c-gather-API.candidates_activities"
       WHERE
         ("body" ilike '%submitted a take home test%'
               OR "body" ilike '%Offer document % was signed by%'
@@ -33,10 +33,10 @@ view: candidate_detail {
         , MAX(CASE WHEN CACTE.activity = 'Offer Signed' THEN NULLIF(CACTE.activity_date,'') ELSE NULL END) AS offer_signed_date
         , MAX(CASE WHEN CACTE.activity = 'Offer Accepted' THEN NULLIF(CACTE.activity_date,'') ELSE NULL END) AS offer_accepted_date
       FROM
-        WORKSPACE_1155666."in.c-gather-API.applications"  A
+        WORKSPACE_493757853."in.c-gather-API.applications"  A
         INNER JOIN candidate_activities_cte CACTE
             ON A."candidate_id" = CACTE.candidate_id
-        INNER JOIN WORKSPACE_1155666."in.c-gather-API.offers" O
+        INNER JOIN WORKSPACE_493757853."in.c-gather-API.offers" O
             ON A."id" = O."application_id"
       GROUP BY
         1, 2
@@ -49,7 +49,7 @@ view: candidate_detail {
         , A."id" AS application_id
         , MAX(CASE WHEN CACTE.activity IN ('Submitted Assessment', 'Moved to Onsite Interview') THEN NULLIF(CACTE.activity_date,'') ELSE NULL END) AS submitted_assessment_date
       FROM
-        WORKSPACE_1155666."in.c-gather-API.applications" A
+        WORKSPACE_493757853."in.c-gather-API.applications" A
         INNER JOIN candidate_activities_cte CACTE
             ON A."candidate_id" = CACTE.candidate_id
       WHERE
@@ -68,12 +68,12 @@ view: candidate_detail {
         , J."id" AS "job_id"
         , MIN(CASE WHEN CACTE.activity = 'Moved to Assessment' THEN NULLIF(CACTE.activity_date,'') ELSE NULL END) AS moved_to_assessment_date
       FROM
-        WORKSPACE_1155666."in.c-gather-API.applications" A
+        WORKSPACE_493757853."in.c-gather-API.applications" A
         INNER JOIN candidate_activities_cte CACTE
             ON A."candidate_id" = CACTE.candidate_id
-        INNER JOIN WORKSPACE_1155666."in.c-gather-API.applications_jobs" AJ
+        INNER JOIN WORKSPACE_493757853."in.c-gather-API.applications_jobs" AJ
             ON A."id" = AJ."applications_pkey"
-        INNER JOIN WORKSPACE_1155666."in.c-gather-API.jobs" J
+        INNER JOIN WORKSPACE_493757853."in.c-gather-API.jobs" J
             ON AJ."job_id" = J."id"
       WHERE
         CACTE.activity = 'Moved to Assessment'
@@ -94,14 +94,14 @@ view: candidate_detail {
         , NULLIF(CAADCTE.submitted_assessment_date,'') AS submitted_assessment_date
         , NULLIF(CAMACTE.moved_to_assessment_date,'') AS moved_to_assessment_date
        FROM
-        WORKSPACE_1155666."in.c-gather-API.applications" A
+        WORKSPACE_493757853."in.c-gather-API.applications" A
         INNER JOIN candidate_activities_cte CACTE
             ON A."candidate_id" = CACTE.candidate_id
-        LEFT JOIN WORKSPACE_1155666."in.c-gather-API.candidates" AS candidates
+        LEFT JOIN WORKSPACE_493757853."in.c-gather-API.candidates" AS candidates
             ON A."candidate_id" = candidates."id"
-        LEFT JOIN WORKSPACE_1155666."in.c-gather-API.applications_jobs" AS applications_jobs
+        LEFT JOIN WORKSPACE_493757853."in.c-gather-API.applications_jobs" AS applications_jobs
             ON A."id" = applications_jobs."applications_pkey"
-        LEFT JOIN WORKSPACE_1155666."in.c-gather-API.jobs" AS jobs
+        LEFT JOIN WORKSPACE_493757853."in.c-gather-API.jobs" AS jobs
             ON applications_jobs."job_id" = jobs."id"
         LEFT JOIN candidate_activity_hired_dates_cte CAHDCTE
             ON CACTE.candidate_id = CAHDCTE.candidate_id
@@ -125,8 +125,8 @@ view: candidate_detail {
         C."id" AS "candidate_id",
         MAX(NULLIF(A."applied_at",'')) AS "most_recent_app_date"
        FROM
-        WORKSPACE_1155666."in.c-gather-API.applications" A
-        INNER JOIN WORKSPACE_1155666."in.c-gather-API.candidates" C
+        WORKSPACE_493757853."in.c-gather-API.applications" A
+        INNER JOIN WORKSPACE_493757853."in.c-gather-API.candidates" C
             ON A."candidate_id" = C."id"
        GROUP BY
         1
@@ -138,15 +138,15 @@ view: candidate_detail {
             -- A."company_name" AS "company_name",
             candidates."custom_fields_candidate_assessment_results2" AS "candidate_assessment_results2"
         FROM
-            WORKSPACE_1155666."in.c-gather-API.applications" A
-            INNER JOIN WORKSPACE_1155666."in.c-gather-API.candidates"  AS candidates
+            WORKSPACE_493757853."in.c-gather-API.applications" A
+            INNER JOIN WORKSPACE_493757853."in.c-gather-API.candidates"  AS candidates
                 ON A."candidate_id" = candidates."id"
             INNER JOIN most_recent_app_per_candidate_cte MRACTE
                 ON candidates."id" = MRACTE."candidate_id"
                 AND A."applied_at" = MRACTE."most_recent_app_date"
-            INNER JOIN WORKSPACE_1155666."in.c-gather-API.applications_jobs" AS applications_jobs
+            INNER JOIN WORKSPACE_493757853."in.c-gather-API.applications_jobs" AS applications_jobs
                 ON A."id" = applications_jobs."applications_pkey"
-            INNER JOIN WORKSPACE_1155666."in.c-gather-API.jobs" AS jobs
+            INNER JOIN WORKSPACE_493757853."in.c-gather-API.jobs" AS jobs
                 ON applications_jobs."job_id" = jobs."id"
        WHERE
             (candidates."custom_fields_ccat1_raw_score" IS NOT NULL
@@ -241,24 +241,24 @@ view: candidate_detail {
         candidates."custom_fields_ucat1_raw_score"  AS "ucat1rawscore",
         candidates."custom_fields_ucat2_raw_score"  AS "ucat2rawscore"
       FROM
-        WORKSPACE_1155666."in.c-gather-API.applications"  AS applications
+        WORKSPACE_493757853."in.c-gather-API.applications"  AS applications
         -- LEFT JOIN "application_stages" AS application_stages
         --     ON applications."id" = application_stages."application_id"
-        LEFT JOIN WORKSPACE_1155666."in.c-gather-API.candidates" AS candidates
+        LEFT JOIN WORKSPACE_493757853."in.c-gather-API.candidates" AS candidates
             ON applications."candidate_id" = candidates."id"
-        LEFT JOIN WORKSPACE_1155666."in.c-gather-API.candidates_email_addresses" AS candidates_email_addresses
+        LEFT JOIN WORKSPACE_493757853."in.c-gather-API.candidates_email_addresses" AS candidates_email_addresses
             ON candidates."id" = candidates_email_addresses."candidates_pkey"
-        LEFT JOIN WORKSPACE_1155666."in.c-gather-API.applications_jobs" AS applications_jobs
+        LEFT JOIN WORKSPACE_493757853."in.c-gather-API.applications_jobs" AS applications_jobs
             ON applications."id" = applications_jobs."applications_pkey"
-        LEFT JOIN WORKSPACE_1155666."in.c-gather-API.jobs" AS jobs
+        LEFT JOIN WORKSPACE_493757853."in.c-gather-API.jobs" AS jobs
             ON applications_jobs."job_id" = jobs."id"
-        LEFT JOIN WORKSPACE_1155666."in.c-gather-API.jobs_departments" AS jobs_departments
+        LEFT JOIN WORKSPACE_493757853."in.c-gather-API.jobs_departments" AS jobs_departments
             ON jobs."id" = jobs_departments."jobs_pkey"
-        LEFT JOIN WORKSPACE_1155666."in.c-gather-API.jobs_offices" AS jobs_offices
+        LEFT JOIN WORKSPACE_493757853."in.c-gather-API.jobs_offices" AS jobs_offices
             ON jobs."id" = jobs_offices."jobs_pkey"
-        LEFT JOIN WORKSPACE_1155666."in.c-gather-API.offers"  AS offers
+        LEFT JOIN WORKSPACE_493757853."in.c-gather-API.offers"  AS offers
             ON applications."id" = offers."application_id"
-        LEFT JOIN WORKSPACE_1155666."in.c-gather-API.sources" AS sources
+        LEFT JOIN WORKSPACE_493757853."in.c-gather-API.sources" AS sources
             ON applications."source_id" = sources."id"
         LEFT JOIN candidate_activity_summary_cte AS candidate_activity
             ON applications."id" = candidate_activity.application_id

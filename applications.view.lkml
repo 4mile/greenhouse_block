@@ -122,6 +122,7 @@ view: applications {
 
   measure: rejection_count {
     type: count_distinct
+    drill_fields: [id,candidate_id,jobs.name,applied_at_date,rejected_at_date,rejection_reason_name,rejection_reason_type_name,current_stage_name]
     sql: ${TABLE}."id" ;;
     filters: {
       field: status
@@ -146,4 +147,8 @@ view: applications {
       value: "active"
     }
   }
+
+#   set: application {
+#     fields: [rejection_reason_name,rejection_reason_type_name,current_stage_name]
+#   }
 }
