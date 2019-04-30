@@ -223,6 +223,7 @@ view: candidates {
   measure: candidate_distinct_count {
     type: count_distinct
     sql: ${TABLE}."id";;
+    drill_fields: [id,applications.id, applications.applied_at_date,jobs.name,jobs_offices.lcation_name,demographics.race,demographics.gender,applications.current_stage_name]
   }
 
   measure: sum_ucat1rawscore {

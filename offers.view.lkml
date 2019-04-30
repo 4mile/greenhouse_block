@@ -130,12 +130,14 @@ view: offers {
     group_label: "Offer"
     type: count_distinct
     sql: ${TABLE}."id" ;;
+    drill_fields: [candidates.id,applications.applied_at_date,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
   }
 
   measure: offer_accepted_count {
     group_label: "Offer"
     type: count_distinct
     sql: ${TABLE}."id" ;;
+    drill_fields: [candidates.id,applications.applied_at_date,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
     filters: {
       field: status
       value: "accepted"
@@ -146,6 +148,7 @@ view: offers {
     group_label: "Offer"
     type: count_distinct
     sql: ${TABLE}."id" ;;
+    drill_fields: [candidates.id,applications.applied_at_date,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date]
     filters: {
       field: status
       value: "rejected"

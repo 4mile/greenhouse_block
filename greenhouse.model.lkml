@@ -46,6 +46,13 @@ explore: applications {
     relationship: one_to_one
   }
 
+  join:  candidate_zipcodes {
+#     view_label: "Candidates Zipcodes"
+    type:left_outer
+    sql_on: ${candidates.id} = ${candidate_zipcodes.candidate_id};;
+    relationship: one_to_one
+  }
+
 # removing join - need to confirm w/ JB but there are only timestamps
 #   join:  candidates_activities {
 #     type:left_outer

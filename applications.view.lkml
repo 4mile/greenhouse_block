@@ -75,11 +75,6 @@ view: applications {
     sql: ${TABLE}."rejection_reason_type_name" ;;
   }
 
-  dimension: prospect {
-    type: string
-    sql: ${TABLE}."prospect" ;;
-  }
-
   dimension: status {
     type: string
     sql: ${TABLE}."status" ;;
@@ -146,6 +141,7 @@ view: applications {
       field: status
       value: "active"
     }
+    drill_fields: [id,candidate_id,jobs.name,jobs_offices.location_name,applied_at_date,status,current_stage_name,last_activity_at_date]
   }
 
 #   set: application {
