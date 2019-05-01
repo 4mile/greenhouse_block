@@ -53,6 +53,14 @@ view: jobs_openings {
     sql: ${TABLE}."parent_job_id" ;;
   }
 
+  dimension: days_opened {
+    label: "Days Opened"
+    type: number
+    sql: CASE WHEN ${status} = 'open' THEN datediff('day', ${opened_at_date}, current_date)
+         ELSE NULL END;;
+    value_format_name: decimal_0
+  }
+
   measure: avg_days_job_open_all {
     label: "Avg Days Opened - All"
     type: average
@@ -63,12 +71,13 @@ view: jobs_openings {
   }
 
   measure: avg_days_open_closed {
-    label: "Avg Days Opened - For Closed Jobs"
+    label: "Avg Days to Close"
     type: average
     sql: CASE
           WHEN ${closed_at_date} IS NULL THEN NULL
           ELSE datediff('day', ${opened_at_date}, ${closed_at_date}) END;;
     value_format_name: decimal_0
+    drill_fields: [jobs.name,jobs_departments.name_category,jobs_offices.lcation_name,avg_days_open_closed]
   }
 
   measure: avg_days_job_open {
@@ -92,6 +101,7 @@ view: jobs_openings {
       field: status
       value: "open"
     }
+  drill_fields: [opening_id,jobs.name,jobs_departments.name_category,jobs_offices.lcation_name,opened_at_date,days_opened,applications.active_count,applications.rejection_count]
   }
 
   measure: job_closed_count {

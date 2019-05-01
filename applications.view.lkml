@@ -113,9 +113,11 @@ view: applications {
   measure: application_count {
     type: count_distinct
     sql: ${TABLE}."id" ;;
+    drill_fields: [id,candidate_id,applied_at_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,status,sources.source_type,current_stage_name]
   }
 
   measure: rejection_count {
+    label: "Reject Application Count"
     type: count_distinct
     drill_fields: [id,candidate_id,applied_at_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,status,sources.source_type,rejected_at_date,rejection_reason_name,rejection_reason_type_name,current_stage_name]
     sql: ${TABLE}."id" ;;
@@ -135,6 +137,7 @@ view: applications {
   }
 
   measure: active_count {
+    label: "Active Application Count"
     type: count_distinct
     sql: ${TABLE}."id" ;;
     filters: {

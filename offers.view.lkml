@@ -163,6 +163,14 @@ view: offers {
     drill_fields: [candidates.id,applications.applied_at_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,status,sent_at_date,starts_at_date]
   }
 
+  measure: acceptance_rate {
+#     description: "Candidate recived an offer"
+    type: number
+    value_format_name: percent_1
+    sql: ${offer_accepted_count}/${offer_count};;
+    drill_fields: [candidates.id,applications.applied_at_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,status,sent_at_date,starts_at_date]
+  }
+
   measure: total_hire_bonus {
     label: "Total Hire Bonus"
     group_label: "Bonus"
