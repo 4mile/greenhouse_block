@@ -130,14 +130,14 @@ view: offers {
     group_label: "Offer"
     type: count_distinct
     sql: ${TABLE}."id" ;;
-    drill_fields: [candidates.id,applications.applied_at_date,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
+    drill_fields: [candidates.id,applications.applied_at_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,status,sent_at_date,starts_at_date]
   }
 
   measure: offer_accepted_count {
     group_label: "Offer"
     type: count_distinct
     sql: ${TABLE}."id" ;;
-    drill_fields: [candidates.id,applications.applied_at_date,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
+    drill_fields: [candidates.id,applications.applied_at_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,status,sent_at_date,starts_at_date]
     filters: {
       field: status
       value: "accepted"
@@ -148,11 +148,19 @@ view: offers {
     group_label: "Offer"
     type: count_distinct
     sql: ${TABLE}."id" ;;
-    drill_fields: [candidates.id,applications.applied_at_date,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date]
+    drill_fields: [candidates.id,applications.applied_at_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,status,sent_at_date,starts_at_date]
     filters: {
       field: status
       value: "rejected"
     }
+  }
+
+  measure: quality_candidate {
+    description: "Candidate recived an offer"
+    type: number
+    value_format_name: percent_1
+    sql: ${offer_count}/${candidates.candidate_distinct_count};;
+    drill_fields: [candidates.id,applications.applied_at_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,status,sent_at_date,starts_at_date]
   }
 
   measure: total_hire_bonus {

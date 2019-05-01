@@ -223,7 +223,15 @@ view: candidates {
   measure: candidate_distinct_count {
     type: count_distinct
     sql: ${TABLE}."id";;
-    drill_fields: [id,applications.id, applications.applied_at_date,jobs.name,jobs_offices.lcation_name,demographics.race,demographics.gender,applications.current_stage_name]
+    drill_fields: [id,applications.id, applications.applied_at_date,application.status,jobs_departments.name_category,jobs.name,jobs_offices.lcation_name,sources.source_type,demographics.race,demographics.gender,applications.current_stage_name]
+  }
+
+  measure: percent_of_total_candidate {
+    label: "Percent of Total (Candidates)"
+    type: percent_of_total
+#     value_format_name: decimal_1
+    sql: ${candidate_distinct_count} ;;
+    drill_fields: [id,applications.id, applications.applied_at_date,application.status,jobs_departments.name_category,jobs.name,jobs_offices.lcation_name,sources.source_type,demographics.race,demographics.gender,applications.current_stage_name]
   }
 
   measure: sum_ucat1rawscore {

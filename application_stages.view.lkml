@@ -2,7 +2,7 @@ view: application_stages {
   view_label: "Application Stages"
   derived_table: {
     sql: SELECT *
-         FROM WORKSPACE_493757853."in.c-greenhouseWebhooks.application_stages"
+         FROM  WORKSPACE_493757853."in.c-greenhouseWebhooks.application_stages"
          WHERE "company_name" = 'WRIKE';;
   }
 
@@ -52,35 +52,35 @@ view: application_stages {
     type: sum
     sql: CASE WHEN ${invited_to_test_date_date} <> 'NULL' THEN 1
          ELSE 0 END;;
-    drill_fields: [candidates.id,invited_to_test_date_date,applications.applied_at_date,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
+    drill_fields: [candidates.id,applications.applied_at_date,invited_to_test_date_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
   }
 
   measure: moved_to_assessment_count {
     type: sum
     sql: CASE WHEN ${moved_to_assessment_date_date} <> 'NULL' THEN 1
       ELSE 0 END;;
-    drill_fields: [candidates.id,moved_to_assessment_date_date,applications.applied_at_date,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
+    drill_fields: [candidates.id,applications.applied_at_date,moved_to_assessment_date_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
   }
 
   measure: moved_to_dept_interview_count {
     type: sum
     sql: CASE WHEN ${moved_to_dept_interview_date_date} <> 'NULL' THEN 1
       ELSE 0 END;;
-    drill_fields: [candidates.id,moved_to_dept_interview_date_date,applications.applied_at_date,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
+    drill_fields: [candidates.id,applications.applied_at_date,moved_to_dept_interview_date_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
   }
 
   measure: moved_to_hr_interview_count {
     type: sum
     sql: CASE WHEN ${moved_to_hr_interview_date_date} <> 'NULL' THEN 1
       ELSE 0 END;;
-    drill_fields: [candidates.id,moved_to_hr_interview_count,applications.applied_at_date,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
+    drill_fields: [candidates.id,applications.applied_at_date,moved_to_hr_interview_date_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
   }
 
   measure: moved_to_onsite_interview_count {
     type: sum
     sql: CASE WHEN ${moved_to_onsite_interview_date_date} <> 'NULL' THEN 1
       ELSE 0 END;;
-    drill_fields: [candidates.id,moved_to_onsite_interview_count,applications.applied_at_date,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
+    drill_fields: [candidates.id,applications.applied_at_date,moved_to_onsite_interview_date_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
   }
 
   measure: applications_count {
@@ -88,4 +88,16 @@ view: application_stages {
     sql: ${application_id};;
   }
 
+}
+
+view: calendar {
+  derived_table: {
+    sql: SELECT cast(DATEADD(DAY, SEQ4(), '2018-01-01') AS date) AS calendar_date
+         FROM TABLE(GENERATOR(ROWCOUNT=>10000));;
+  }
+
+  dimension_group: calendar_date {
+    timeframes: [raw,date,week,month,quarter,year]
+    sql: ${TABLE}.calendar_date ;;
+  }
 }

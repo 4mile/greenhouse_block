@@ -10,6 +10,7 @@ view: jobs {
   }
 
   dimension: name {
+    label: "Job Title"
     type: string
     sql: ${TABLE}."name" ;;
   }
