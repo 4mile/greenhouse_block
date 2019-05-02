@@ -13,8 +13,6 @@ persist_with: greenhouse_default_datagroup
 explore: applications {
   label: "Applications"
 
-#   sql_always_where: ${application_stages.company_name} = 'WRIKE' ;;
-
   join: demographics {
     type: left_outer
     sql_on: ${applications.id} = ${demographics.application_id} ;;
@@ -47,21 +45,12 @@ explore: applications {
   }
 
   join:  candidate_zipcodes {
-#     view_label: "Candidates Zipcodes"
     type:left_outer
     sql_on: ${candidates.id} = ${candidate_zipcodes.candidate_id};;
     relationship: one_to_one
   }
 
-# removing join - need to confirm w/ JB but there are only timestamps
-#   join:  candidates_activities {
-#     type:left_outer
-#     sql_on: ${applications.candidate_id} = ${candidates_activities.candidate_id};;
-#     relationship: many_to_many
-#   }
-
   join:  applications_jobs {
-#     view_label: "Applications"
     type:left_outer
     sql_on: ${applications.id} = ${applications_jobs.application_id};;
     relationship: one_to_one
@@ -98,7 +87,6 @@ explore: applications {
     relationship: one_to_one
   }
 
-#   applications."source_id" = sources."id"
   join:  sources {
     type:left_outer
     sql_on: ${applications.source_id} = ${sources.id};;
@@ -111,36 +99,3 @@ explore: applications {
     relationship: many_to_one
   }
 }
-
-# explore: candidates_stage_changes {
-#
-#   join: applications {
-#     type: left_outer
-#     sql_on: ${candidates_stage_changes.application_id} = ${applications.id} ;;
-#     relationship: many_to_many
-#   }
-#
-#   join:  candidates {
-#     type:left_outer
-#     sql_on: ${applications.candidate_id} = ${candidates.id};;
-#     relationship: many_to_one
-#   }
-# }
-
-# explore: candidate_detail {}
-# explore: incremental {}
-
-# explore: jobs {
-#
-#   join: offers {
-#     type: left_outer
-#     relationship: one_to_many
-#     sql_on:  ${jobs.id} = ${offers.job_id};;
-#   }
-#
-#   join:  candidates {
-#     type:left_outer
-#     sql_on: ${offers.candidate_id} = ${candidates.id};;
-#     relationship: many_to_one
-#   }
-# }

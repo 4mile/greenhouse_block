@@ -87,17 +87,4 @@ view: application_stages {
     type: count_distinct
     sql: ${application_id};;
   }
-
-}
-
-view: calendar {
-  derived_table: {
-    sql: SELECT cast(DATEADD(DAY, SEQ4(), '2018-01-01') AS date) AS calendar_date
-         FROM TABLE(GENERATOR(ROWCOUNT=>10000));;
-  }
-
-  dimension_group: calendar_date {
-    timeframes: [raw,date,week,month,quarter,year]
-    sql: ${TABLE}.calendar_date ;;
-  }
 }
