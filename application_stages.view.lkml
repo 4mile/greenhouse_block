@@ -52,35 +52,75 @@ view: application_stages {
     type: sum
     sql: CASE WHEN ${invited_to_test_date_date} <> 'NULL' THEN 1
          ELSE 0 END;;
-    drill_fields: [candidates.id,applications.applied_at_date,invited_to_test_date_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
+    drill_fields: [candidates.id
+                  ,applications.applied_at_date
+                  ,application_stages_derived.created_at
+                  ,jobs_departments.name_category
+                  ,jobs.name
+                  ,jobs_offices.location_name
+                  ,candidates.current_stage_name
+                  ,offers.sent_at_date
+                  ,offers.starts_at_date]
   }
 
   measure: moved_to_assessment_count {
     type: sum
     sql: CASE WHEN ${moved_to_assessment_date_date} <> 'NULL' THEN 1
       ELSE 0 END;;
-    drill_fields: [candidates.id,applications.applied_at_date,moved_to_assessment_date_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
+    drill_fields: [candidates.id
+                  ,applications.applied_at_date
+                  ,moved_to_assessment_date_date
+                  ,jobs_departments.name_category
+                  ,jobs.name
+                  ,jobs_offices.location_name
+                  ,candidates.current_stage_name
+                  ,offers.sent_at_date
+                  ,offers.starts_at_date]
   }
 
   measure: moved_to_dept_interview_count {
     type: sum
     sql: CASE WHEN ${moved_to_dept_interview_date_date} <> 'NULL' THEN 1
       ELSE 0 END;;
-    drill_fields: [candidates.id,applications.applied_at_date,moved_to_dept_interview_date_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
+    drill_fields: [candidates.id
+                  ,applications.applied_at_date
+                  ,moved_to_dept_interview_date_date
+                  ,jobs_departments.name_category
+                  ,jobs.name
+                  ,jobs_offices.location_name
+                  ,candidates.current_stage_name
+                  ,offers.sent_at_date
+                  ,offers.starts_at_date]
   }
 
   measure: moved_to_hr_interview_count {
     type: sum
     sql: CASE WHEN ${moved_to_hr_interview_date_date} <> 'NULL' THEN 1
       ELSE 0 END;;
-    drill_fields: [candidates.id,applications.applied_at_date,moved_to_hr_interview_date_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
+    drill_fields: [candidates.id
+                  ,applications.applied_at_date
+                  ,moved_to_hr_interview_date_date
+                  ,jobs_departments.name_category
+                  ,jobs.name
+                  ,jobs_offices.location_name
+                  ,candidates.current_stage_name
+                  ,offers.sent_at_date
+                  ,offers.starts_at_date]
   }
 
   measure: moved_to_onsite_interview_count {
     type: sum
     sql: CASE WHEN ${moved_to_onsite_interview_date_date} <> 'NULL' THEN 1
       ELSE 0 END;;
-    drill_fields: [candidates.id,applications.applied_at_date,moved_to_onsite_interview_date_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,candidates.current_stage_name,offers.sent_at_date,offers.starts_at_date]
+    drill_fields: [candidates.id
+                  ,applications.applied_at_date
+                  ,moved_to_onsite_interview_date_date
+                  ,jobs_departments.name_category
+                  ,jobs.name
+                  ,jobs_offices.location_name
+                  ,candidates.current_stage_name
+                  ,offers.sent_at_date
+                  ,offers.starts_at_date]
   }
 
   measure: applications_count {

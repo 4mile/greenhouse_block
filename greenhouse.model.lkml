@@ -3,12 +3,12 @@ connection: "keboola_greenhouse_sf"
 # include all the views
 include: "*.view"
 
-datagroup: greenhouse_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
-}
+# datagroup: greenhouse_default_datagroup {
+#   # sql_trigger: SELECT MAX(id) FROM etl_log;;
+#   max_cache_age: "1 hour"
+# }
 
-persist_with: greenhouse_default_datagroup
+# persist_with: greenhouse_default_datagroup
 
 explore: applications {
   label: "Applications"
@@ -29,6 +29,12 @@ explore: applications {
     type:left_outer
     sql_on: ${applications.id} = ${application_stages.application_id};;
     relationship: one_to_one
+  }
+
+  join: application_stages_derived {
+    type: left_outer
+    sql_on: ${applications.id} = ${application_stages_derived.application_id} ;;
+    relationship: one_to_many
   }
 
   join:  candidates {

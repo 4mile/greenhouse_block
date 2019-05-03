@@ -103,23 +103,36 @@ view: applications {
     value_format_name: decimal_1
   }
 
-#   measure: avg_applied_offer_duration {
-#     label: "Average Days Between Applied/Offer"
-#     type: average
-#     sql: datediff('day', ${applied_at_raw}, ${offers.sent_at_raw})  ;;
-#     value_format_name: decimal_1
-#   }
-
   measure: application_count {
     type: count_distinct
     sql: ${TABLE}."id" ;;
-    drill_fields: [id,candidate_id,applied_at_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,status,sources.source_type,current_stage_name]
+    drill_fields: [id
+                  ,candidate_id
+                  ,applied_at_date
+                  ,jobs_departments.name_category
+                  ,jobs.name
+                  ,jobs_offices.location_name
+                  ,status
+                  ,sources.source_type
+                  ,current_stage_name
+                  ,last_activity_at_date]
   }
 
   measure: rejection_count {
     label: "Reject Application Count"
     type: count_distinct
-    drill_fields: [id,candidate_id,applied_at_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,status,sources.source_type,rejected_at_date,rejection_reason_name,rejection_reason_type_name,current_stage_name]
+    drill_fields: [id
+                  ,candidate_id
+                  ,applied_at_date
+                  ,jobs_departments.name_category
+                  ,jobs.name
+                  ,jobs_offices.location_name
+                  ,status
+                  ,sources.source_type
+                  ,rejected_at_date
+                  ,rejection_reason_name
+                  ,rejection_reason_type_name
+                  ,current_stage_name]
     sql: ${TABLE}."id" ;;
     filters: {
       field: status
@@ -144,7 +157,16 @@ view: applications {
       field: status
       value: "active"
     }
-    drill_fields: [id,candidate_id,applied_at_date,jobs_departments.name_category,jobs.name,jobs_offices.location_name,status,sources.source_type,current_stage_name,last_activity_at_date]
+    drill_fields: [id
+                  ,candidate_id
+                  ,applied_at_date
+                  ,jobs_departments.name_category
+                  ,jobs.name
+                  ,jobs_offices.location_name
+                  ,status
+                  ,sources.source_type
+                  ,current_stage_name
+                  ,last_activity_at_date]
   }
 
 #   set: application {
