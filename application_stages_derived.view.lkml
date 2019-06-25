@@ -43,6 +43,8 @@ view: application_stages_derived {
         WHERE "company_name" = 'WRIKE' AND NULLIF("moved_to_onsite_interview_date",'') IS NOT NULL) a
       JOIN WORKSPACE_493757853."in.c-wrike-API-Milepost.applications" b ON a."application_id" = b."id"
             ;;
+    sql_trigger_value: SELECT MAX("application_id") FROM WORKSPACE_493757853."in.c-greenhouseWebhooks.application_stages" ;;
+    indexes: ["application_id"]
     }
 
     measure: count {

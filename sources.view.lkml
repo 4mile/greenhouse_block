@@ -2,6 +2,7 @@ view: sources {
   view_label: "Sources"
   sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.sources" ;;
 
+##### Primary Key #####
   dimension: id {
     label: "Source Id"
     primary_key: yes
@@ -9,6 +10,7 @@ view: sources {
     sql: ${TABLE}."id" ;;
   }
 
+##### Dimensions #####
   dimension: name {
     label: "Source Name"
     type: string
@@ -25,6 +27,7 @@ view: sources {
     sql: ${TABLE}."source_type" ;;
   }
 
+##### Measures #####
   measure: source_count {
     type: count_distinct
     sql: ${TABLE}."id" ;;

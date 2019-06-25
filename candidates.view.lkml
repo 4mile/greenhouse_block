@@ -2,6 +2,7 @@ view: candidates {
   view_label: "Candidates"
   sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.candidates" ;;
 
+##### Primary Key #####
   dimension: id {
     label: "Candidate Id"
     primary_key: yes
@@ -9,6 +10,53 @@ view: candidates {
     sql: ${TABLE}."id" ;;
   }
 
+##### Dimesnion Groups #####
+ dimension_group: created_at {
+    type: time
+    timeframes: [raw
+      ,date
+      ,week
+      ,month
+      ,quarter
+      ,year]
+    sql: nullif(${TABLE}."created_at",'') ;;
+  }
+
+  dimension_group: updated_at {
+    type: time
+    timeframes: [raw
+      ,date
+      ,week
+      ,month
+      ,quarter
+      ,year]
+    sql: nullif(${TABLE}."updated_at",'') ;;
+  }
+
+  dimension_group: last_activity_at {
+    type: time
+    timeframes: [raw
+      ,date
+      ,week
+      ,month
+      ,quarter
+      ,year]
+    sql: nullif(${TABLE}."last_activity_at",'') ;;
+  }
+
+  dimension_group: custom_fields_candidate_assessment_results2 {
+    label: "Candidate Assessment Results"
+    type: time
+    timeframes: [raw
+      ,date
+      ,week
+      ,month
+      ,quarter
+      ,year]
+    sql: nullif(${TABLE}."custom_fields_candidate_assessment_results2",'') ;;
+  }
+
+##### Dimesnions #####
   dimension: first_name {
     group_label: "Candidate Info"
     type: string
@@ -31,27 +79,6 @@ view: candidates {
     group_label: "Candidate Info"
     type: string
     sql: ${TABLE}."title" ;;
-  }
-
-  dimension_group: created_at {
-#     group_label: "Candidate Info"
-    type: time
-    timeframes: [raw,date,week,month,quarter,year]
-    sql: NULLIF(${TABLE}."created_at",'') ;;
-  }
-
-  dimension_group: updated_at {
-#     group_label: "Candidate Info"
-    type: time
-    timeframes: [raw,date,week,month,quarter,year]
-    sql: NULLIF(${TABLE}."updated_at",'') ;;
-  }
-
-  dimension_group: last_activity_at {
-#     group_label: "Candidate Info"
-    type: time
-    timeframes: [raw,date,week,month,quarter,year]
-    sql: NULLIF(${TABLE}."last_activity_at",'') ;;
   }
 
   dimension: recruiter_id {
@@ -116,43 +143,35 @@ view: candidates {
 
   dimension: custom_fields_desired_salary {
     label: "Desired Salary"
-#     group_label: "Custom Fields"
+    group_label: "Custom Fields"
     type: string
     sql: ${TABLE}."custom_fields_desired_salary" ;;
   }
 
   dimension: custom_fields_invite_to_expensify {
     label: "Invite to Expensify"
-#     group_label: "Custom Fields"
+    group_label: "Custom Fields"
     type: string
     sql: ${TABLE}."custom_fields_invite_to_expensify" ;;
   }
 
   dimension: custom_fields_sponsorship {
     label: "Sponsorship"
-#     group_label: "Custom Fields"
+    group_label: "Custom Fields"
     type: string
     sql: ${TABLE}."custom_fields_sponsorship" ;;
   }
 
-  dimension_group: custom_fields_candidate_assessment_results2 {
-    label: "Candidate Assessment Results"
-#     group_label: "Custom Fields"
-    type: time
-    timeframes: [raw,date,week,month,quarter,year]
-    sql: NULLIF(${TABLE}."custom_fields_candidate_assessment_results2",'') ;;
-  }
-
   dimension: custom_fields_candidate_status {
     label: "Status"
-#     group_label: "Custom Fields"
+    group_label: "Custom Fields"
     type: string
     sql: ${TABLE}."custom_fields_candidate_status" ;;
   }
 
   dimension: custom_fields_candidate_experience_level {
     label: "Candidate Experience Level"
-#     group_label: "Custom Fields"
+    group_label: "Custom Fields"
     type: string
     sql: ${TABLE}."custom_fields_candidate_experience_level" ;;
   }
@@ -173,7 +192,7 @@ view: candidates {
 
   dimension: custom_fields_candidate_no_show {
     label: "Candidate No Show"
-#     group_label: "Custom Fields"
+    group_label: "Custom Fields"
     type: string
     sql: ${TABLE}."custom_fields_candidate_no_show" ;;
   }
@@ -181,48 +200,49 @@ view: candidates {
   dimension: custom_fields_ucat1_raw_score {
     label: "UCAT1 Raw Score"
     group_label: "Assessment Scores"
-    type: string
-    sql: ${TABLE}."custom_fields_ucat1_raw_score" ;;
+    type: number
+    sql: nullif(${TABLE}."custom_fields_ucat1_raw_score",'') ;;
   }
 
   dimension: custom_fields_ucat2_raw_score {
     label: "UCAT2 Raw Score"
     group_label: "Assessment Scores"
-    type: string
-    sql: ${TABLE}."custom_fields_ucat2_raw_score" ;;
+    type: number
+    sql: nullif(${TABLE}."custom_fields_ucat2_raw_score",'') ;;
   }
 
   dimension: custom_fields_candidate_sourced {
     label: "Sourced"
-#     group_label: "Custom Fields"
-    type: string
+    group_label: "Custom Fields"
+    type: number
     sql: ${TABLE}."custom_fields_candidate_sourced" ;;
   }
 
   dimension: custom_fields_ccat1_raw_score {
     label: "CCAT1 Raw Score"
     group_label: "Assessment Scores"
-    type: string
-    sql: ${TABLE}."custom_fields_ccat1_raw_score" ;;
+    type: number
+    sql: nullif(${TABLE}."custom_fields_ccat1_raw_score",'') ;;
   }
 
   dimension: custom_fields_ccat2_raw_score {
     label: "CCAT2 Raw Score"
     group_label: "Assessment Scores"
-    type: string
-    sql: ${TABLE}."custom_fields_ccat2_raw_score" ;;
+    type: number
+    sql: nullif(${TABLE}."custom_fields_ccat2_raw_score",'') ;;
   }
 
   dimension: custom_fields_epp {
     label: "EPP"
-#     group_label: "Custom Fields"
+    group_label: "Custom Fields"
     type: string
     sql: ${TABLE}."custom_fields_epp" ;;
   }
 
+##### Measures #####
   measure: candidate_distinct_count {
     type: count_distinct
-    sql: ${TABLE}."id";;
+    sql: ${id};;
     drill_fields: [id
                   ,applications.id
                   ,applications.applied_at_date
@@ -239,7 +259,6 @@ view: candidates {
   measure: percent_of_total_candidate {
     label: "Percent of Total (Candidates)"
     type: percent_of_total
-#     value_format_name: decimal_1
     sql: ${candidate_distinct_count} ;;
     drill_fields: [id
                   ,applications.id
@@ -258,14 +277,14 @@ view: candidates {
     group_label: "UCAT Score"
     label: "Total UCAT 1 Raw Score"
     type: sum
-    sql: NULLIF(${TABLE}."custom_fields_ucat1_raw_score",'');;
+    sql: ${custom_fields_ucat1_raw_score} ;;
   }
 
   measure: sum_ucat2rawscore {
     group_label: "UCAT Score"
     label: "Total UCAT 2 Raw Score"
     type: sum
-    sql: NULLIF(${TABLE}."custom_fields_ucat2_raw_score",'');;
+    sql: ${custom_fields_ucat2_raw_score};;
   }
 
   measure: sum_combined_ucat_score {
@@ -279,7 +298,7 @@ view: candidates {
     group_label: "UCAT Score"
     label: "Average UCAT 1 Raw Score"
     type: average
-    sql: NULLIF(${TABLE}."custom_fields_ucat1_raw_score",'');;
+    sql: ${custom_fields_ucat1_raw_score} ;;
     value_format_name: decimal_1
   }
 
@@ -287,7 +306,7 @@ view: candidates {
     group_label: "UCAT Score"
     label: "Average UCAT 2 Raw Score"
     type: average
-    sql: NULLIF(${TABLE}."custom_fields_ucat2_raw_score",'');;
+    sql: ${custom_fields_ucat2_raw_score};;
     value_format_name: decimal_1
   }
 
@@ -295,7 +314,7 @@ view: candidates {
     group_label: "UCAT Score"
     label: "Average Combined UCAT Raw Score"
     type: average
-    sql: (NULLIF(${TABLE}."custom_fields_ucat1_raw_score",'')+NULLIF(${TABLE}."custom_fields_ucat2_raw_score",''));;
+    sql: (${custom_fields_ucat1_raw_score} + ${custom_fields_ucat2_raw_score});;
     value_format_name: decimal_1
   }
 
@@ -303,28 +322,28 @@ view: candidates {
     group_label: "CCAT Score"
     label: "Total CCAT 1 Raw Score"
     type: sum
-    sql: NULLIF(${TABLE}."custom_fields_ccat1_raw_score",'');;
+    sql: ${custom_fields_ccat1_raw_score};;
   }
 
   measure: sum_ccat2rawscore {
     group_label: "CCAT Score"
     label: "Total CCAT 2 Raw Score"
     type: sum
-    sql: NULLIF(${TABLE}."custom_fields_ccat2_raw_score",'');;
+    sql: ${custom_fields_ccat2_raw_score};;
   }
 
   measure: sum_combined_ccat_score {
     group_label: "CCAT Score"
     label: "Total CCAT Raw Score"
     type: number
-    sql: ${sum_ccat1rawscore}+${sum_ccat2rawscore};;
+    sql: ${sum_ccat1rawscore} + ${sum_ccat2rawscore};;
   }
 
   measure: avg_ccat1_score {
     group_label: "CCAT Score"
     label: "Average CCAT 1 Raw Score"
     type: average
-    sql: NULLIF(${TABLE}."custom_fields_ccat1_raw_score",'');;
+    sql: ${custom_fields_ccat1_raw_score};;
     value_format_name: decimal_1
   }
 
@@ -332,7 +351,7 @@ view: candidates {
     group_label: "CCAT Score"
     label: "Average CCAT 2 Raw Score"
     type: average
-    sql: NULLIF(${TABLE}."custom_fields_ccat2_raw_score",'');;
+    sql: ${custom_fields_ccat2_raw_score};;
     value_format_name: decimal_1
   }
 
@@ -340,7 +359,7 @@ view: candidates {
     group_label: "CCAT Score"
     label: "Average Combined CCAT Raw Score"
     type: average
-    sql: (NULLIF(${TABLE}."custom_fields_ccat1_raw_score",'')+NULLIF(${TABLE}."custom_fields_ccat2_raw_score",''));;
+    sql: ${custom_fields_ccat1_raw_score} + ${custom_fields_ccat2_raw_score};;
     value_format_name: decimal_1
   }
 }
