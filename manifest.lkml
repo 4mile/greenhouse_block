@@ -6,5 +6,5 @@
 # }
 application: demo {
   label: "Demo"
-  url: "https://localhost:3000"
+  url: "https://localhost:8080/bundle.js"
 }
