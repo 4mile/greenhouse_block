@@ -7,4 +7,5 @@
 application: demo {
   label: "Demo"
   url: "https://localhost:8080/bundle.js"
+  # file: "bundle.js"
 }
