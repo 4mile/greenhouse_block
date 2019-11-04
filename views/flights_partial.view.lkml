@@ -1,5 +1,12 @@
 view: flights {
-  sql_table_name: join_demo.flights_partial ;;
+#   sql_table_name: join_demo.flights_partial ;;
+
+  derived_table: {
+    sql:
+        select * from join_demo.flights_partial
+    ;;
+    persist_for: "10000 hours"
+  }
 
   dimension: aircraft_years_in_service {
     type: number
