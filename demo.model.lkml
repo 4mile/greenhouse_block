@@ -24,3 +24,5 @@ explore: airline_averages {}
 explore: airports {}
 
 explore: faa_aircraft {}
+
+explore: flights {}
