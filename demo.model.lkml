@@ -1,5 +1,6 @@
 connection: "4mile_bigquery"
 
+include: "candidates.dashboard.lookml"
 include: "/views/*.view"                       # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 

@@ -584,14 +584,14 @@
     col: 0
     width: 13
     height: 7
-  filters:
-  - name: Application Date
-    title: Application Date
-    type: field_filter
-    default_value: 1 months ago for 1 months
-    allow_multiple_values: true
-    required: false
-    model: greenhouse
-    explore: applications
-    listens_to_filters: []
-    field: calendar_dates.calendar_date
+  # filters:
+  # - name: Application Date
+  #   title: Application Date
+  #   type: field_filter
+  #   default_value: 1 months ago for 1 months
+  #   allow_multiple_values: true
+  #   required: false
+  #   model: greenhouse
+  #   explore: applications
+  #   listens_to_filters: []
+  #   field: calendar_dates.calendar_date
