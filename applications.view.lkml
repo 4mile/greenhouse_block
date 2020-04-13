@@ -1,5 +1,5 @@
 view: applications {
-  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.applications" ;;
+  sql_table_name: WORKSPACE_1155666."in.c-wrike-API-Milepost.applications" ;;
 
 ##### Primary Key #####
   dimension: id {

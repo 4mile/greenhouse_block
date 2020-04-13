@@ -1,6 +1,6 @@
 view: scheduled_interviews {
   view_label: "Interviews"
-  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.scheduled_interviews" ;;
+  sql_table_name: WORKSPACE_1155666."in.c-wrike-API-Milepost.scheduled_interviews" ;;
 
   dimension: id {
     primary_key: yes

@@ -2,6 +2,7 @@ connection: "keboola_greenhouse_sf"
 
 # include all the views
 include: "*.view"
+include: "candidates.dashboard.lookml"
 
 explore: applications {
   label: "Applications"

@@ -1,6 +1,6 @@
 view: jobs_offices {
   view_label: "Job Offices"
-  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.jobs_offices";;
+  sql_table_name: WORKSPACE_1155666."in.c-wrike-API-Milepost.jobs_offices";;
 
   dimension: job_id {
     type: string

@@ -11,39 +11,39 @@ view: application_stages_derived {
               ,"application_id"
               ,'Invited to Test' AS stage
               ,"invited_to_test_date" AS created_at
-        FROM  WORKSPACE_493757853."in.c-greenhouseWebhooks.application_stages"
+        FROM  WORKSPACE_1155666."in.c-greenhouseWebhooks.application_stages"
         WHERE "company_name" = 'WRIKE' AND NULLIF("invited_to_test_date",'') IS NOT NULL
       UNION
         SELECT "company_name"
               ,"application_id"
               ,'Moved to Dept Interview' AS stage
               ,"moved_to_dept_interview_date" AS created_at
-        FROM  WORKSPACE_493757853."in.c-greenhouseWebhooks.application_stages"
+        FROM  WORKSPACE_1155666."in.c-greenhouseWebhooks.application_stages"
         WHERE "company_name" = 'WRIKE' AND NULLIF("moved_to_dept_interview_date",'') IS NOT NULL
       UNION
         SELECT "company_name"
               ,"application_id"
               ,'Moved to Assessment' AS stage
               ,"moved_to_assessment_date" AS created_at
-        FROM  WORKSPACE_493757853."in.c-greenhouseWebhooks.application_stages"
+        FROM  WORKSPACE_1155666."in.c-greenhouseWebhooks.application_stages"
         WHERE "company_name" = 'WRIKE' AND NULLIF("moved_to_assessment_date",'') IS NOT NULL
       UNION
         SELECT "company_name"
               ,"application_id"
               ,'Moved to HR Interview' AS stage
               ,"moved_to_hr_interview_date" AS created_at
-        FROM  WORKSPACE_493757853."in.c-greenhouseWebhooks.application_stages"
+        FROM  WORKSPACE_1155666."in.c-greenhouseWebhooks.application_stages"
         WHERE "company_name" = 'WRIKE' AND NULLIF("moved_to_hr_interview_date",'') IS NOT NULL
       UNION
         SELECT "company_name"
               ,"application_id"
               ,'Moved to Onsite Interview' AS stage
               ,"moved_to_onsite_interview_date" AS created_at
-        FROM  WORKSPACE_493757853."in.c-greenhouseWebhooks.application_stages"
+        FROM  WORKSPACE_1155666."in.c-greenhouseWebhooks.application_stages"
         WHERE "company_name" = 'WRIKE' AND NULLIF("moved_to_onsite_interview_date",'') IS NOT NULL) a
-      JOIN WORKSPACE_493757853."in.c-wrike-API-Milepost.applications" b ON a."application_id" = b."id"
+      JOIN WORKSPACE_1155666."in.c-wrike-API-Milepost.applications" b ON a."application_id" = b."id"
             ;;
-    sql_trigger_value: SELECT MAX("application_id") FROM WORKSPACE_493757853."in.c-greenhouseWebhooks.application_stages" ;;
+    sql_trigger_value: SELECT MAX("application_id") FROM WORKSPACE_1155666."in.c-greenhouseWebhooks.application_stages" ;;
     indexes: ["application_id"]
     }
 

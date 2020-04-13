@@ -1,6 +1,6 @@
 view: candidates {
   view_label: "Candidates"
-  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.candidates" ;;
+  sql_table_name: WORKSPACE_1155666."in.c-wrike-API-Milepost.candidates" ;;
 
 ##### Primary Key #####
   dimension: id {

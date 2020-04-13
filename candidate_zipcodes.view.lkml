@@ -1,6 +1,6 @@
 view: candidate_zipcodes {
   view_label: "Candidate Zipcodes"
-  sql_table_name: WORKSPACE_493757853."out.c-milepost-parse-address-data.parsed_zipcodes" ;;
+  sql_table_name: WORKSPACE_1155666."out.c-milepost-parse-address-data.parsed_zipcodes" ;;
 
 ##### Primary Key #####
   dimension: candidate_id {

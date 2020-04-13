@@ -1,7 +1,7 @@
 view: candidates_stage_changes {
     derived_table: {
       sql:    SELECT *
-              FROM WORKSPACE_493757853."out.c-milepost-unpack-webhooks.webhooks_candidate_stage_changes"
+              FROM WORKSPACE_1155666."out.c-milepost-unpack-webhooks.webhooks_candidate_stage_changes"
               WHERE "company_name" = 'wrike'
                ;;
     }

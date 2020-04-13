@@ -1,6 +1,6 @@
 view: applications_jobs {
   view_label: "Application Jobs"
-  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.applications_jobs";;
+  sql_table_name: WORKSPACE_1155666."in.c-wrike-API-Milepost.applications_jobs";;
 
 ##### Primary Key #####
   dimension: application_id {

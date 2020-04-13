@@ -1,6 +1,6 @@
 view: sources {
   view_label: "Sources"
-  sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.sources" ;;
+  sql_table_name: WORKSPACE_1155666."in.c-wrike-API-Milepost.sources" ;;
 
 ##### Primary Key #####
   dimension: id {

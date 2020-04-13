@@ -1,6 +1,6 @@
 view: demographics {
     view_label: "Demographics"
-    sql_table_name: WORKSPACE_493757853."in.c-wrike-API-Milepost.demographics" ;;
+    sql_table_name: WORKSPACE_1155666."in.c-wrike-API-Milepost.demographics" ;;
 
   dimension: application_id {
     primary_key: yes

@@ -1,7 +1,7 @@
 view: application_stages {
   derived_table: {
     sql: select *
-         from  WORKSPACE_493757853."in.c-greenhouseWebhooks.application_stages"
+         from  WORKSPACE_1155666."in.c-greenhouseWebhooks.application_stages"
          where "company_name" = 'WRIKE';;
   }
 ##### Primary Key #####
